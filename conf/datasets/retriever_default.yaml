@@ -33,3 +33,7 @@ curatedtrec_test:
   _target_: dpr.data.retriever_data.CsvQASrc
   file: data.retriever.qas.curatedtrec-test
 
+cmu_lti_qa:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: /jet/home/jhou/project/11711-End-to-end-NLP-System-Building/qa_lst.csv
+
