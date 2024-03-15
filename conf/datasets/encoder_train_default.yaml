@@ -1,5 +1,13 @@
 # @package _group_
 
+cmu_lti_train:
+  _target_: dpr.data.biencoder_data.JsonQADataset
+  file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_train.json
+
+cmu_lti_dev:
+  _target_: dpr.data.biencoder_data.JsonQADataset
+  file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_dev.json
+
 nq_train:
   _target_: dpr.data.biencoder_data.JsonQADataset
   file: data.retriever.nq-train

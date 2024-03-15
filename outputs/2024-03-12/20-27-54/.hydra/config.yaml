@@ -1,0 +1,91 @@
+encoder:
+  encoder_model_type: hf_bert
+  pretrained_model_cfg: bert-base-uncased
+  pretrained_file: null
+  projection_dim: 0
+  sequence_length: 512
+  dropout: 0.1
+  fix_ctx_encoder: false
+  pretrained: true
+datasets:
+  cmu_qa:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_qa.csv
+  cmu_qa_train:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_qa_train.csv
+  cmu_qa_dev:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_qa_dev.csv
+  nq_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-test
+  nq_train:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-train
+  nq_dev:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-dev
+  trivia_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-test
+  trivia_train:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-train
+  trivia_dev:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-dev
+  webq_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.webq-test
+  curatedtrec_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.curatedtrec-test
+ctx_sources:
+  dpr_wiki:
+    _target_: dpr.data.retriever_data.CsvCtxSrc
+    file: data.wikipedia_split.psgs_w100
+    id_prefix: 'wiki:'
+  cmu_lti:
+    _target_: dpr.data.retriever_data.CsvCtxSrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/chunked_doc.tsv
+    id_prefix: 'cmu_lti:'
+indexers:
+  flat:
+    _target_: dpr.indexer.faiss_indexers.DenseFlatIndexer
+  hnsw:
+    _target_: dpr.indexer.faiss_indexers.DenseHNSWFlatIndexer
+  hnsw_sq:
+    _target_: dpr.indexer.faiss_indexers.DenseHNSWSQIndexer
+qa_dataset: cmu_qa
+ctx_datatsets:
+- cmu_lti
+encoded_ctx_files:
+- /home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb_*
+out_file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/cmuqa_retriever_output.json
+match: string
+n_docs: 100
+validation_workers: 16
+batch_size: 128
+do_lower_case: true
+encoder_path: null
+index_path: null
+kilt_out_file: null
+model_file: /home/ec2-user/11711-a2/DPR/dpr/downloads/checkpoint/retriever/multiset/bert-base-encoder.cp
+validate_as_tables: false
+rpc_retriever_cfg_file: null
+rpc_index_id: null
+use_l2_conversion: false
+use_rpc_meta: false
+rpc_meta_compressed: false
+indexer: flat
+special_tokens: null
+local_rank: -1
+global_loss_buf_sz: 150000
+device: null
+distributed_world_size: null
+distributed_port: null
+no_cuda: false
+n_gpu: null
+fp16: false
+fp16_opt_level: O1

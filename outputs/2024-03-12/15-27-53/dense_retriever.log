@@ -1,0 +1,107 @@
+[2024-03-12 15:27:53,986][root][INFO] - CFG's local_rank=-1
+[2024-03-12 15:27:53,986][root][INFO] - Env WORLD_SIZE=None
+[2024-03-12 15:27:53,987][root][INFO] - Initialized host ip-172-31-67-199.ec2.internal as d.rank -1 on device=cuda, n_gpu=1, world size=1
+[2024-03-12 15:27:53,987][root][INFO] - 16-bits training: False 
+[2024-03-12 15:27:53,987][root][INFO] - Reading saved model from /home/ec2-user/11711-a2/DPR/dpr/workdir/dpr_biencoder.29
+[2024-03-12 15:27:54,783][root][INFO] - model_state_dict keys dict_keys(['model_dict', 'optimizer_dict', 'scheduler_dict', 'offset', 'epoch', 'encoder_params'])
+[2024-03-12 15:27:54,784][root][INFO] - CFG (after gpu  configuration):
+[2024-03-12 15:27:54,789][root][INFO] - encoder:
+  encoder_model_type: hf_bert
+  pretrained_model_cfg: bert-base-uncased
+  pretrained_file: null
+  projection_dim: 0
+  sequence_length: 256
+  dropout: 0.1
+  fix_ctx_encoder: false
+  pretrained: true
+datasets:
+  cmu_lti_qa:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/qa_lst.csv
+  nq_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-test
+  nq_train:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-train
+  nq_dev:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-dev
+  trivia_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-test
+  trivia_train:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-train
+  trivia_dev:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-dev
+  webq_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.webq-test
+  curatedtrec_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.curatedtrec-test
+ctx_sources:
+  dpr_wiki:
+    _target_: dpr.data.retriever_data.CsvCtxSrc
+    file: data.wikipedia_split.psgs_w100
+    id_prefix: 'wiki:'
+  cmu_lti:
+    _target_: dpr.data.retriever_data.CsvCtxSrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/chunked_doc.tsv
+    id_prefix: 'cmu_lti:'
+indexers:
+  flat:
+    _target_: dpr.indexer.faiss_indexers.DenseFlatIndexer
+  hnsw:
+    _target_: dpr.indexer.faiss_indexers.DenseHNSWFlatIndexer
+  hnsw_sq:
+    _target_: dpr.indexer.faiss_indexers.DenseHNSWSQIndexer
+qa_dataset: cmu_lti_qa
+ctx_datatsets:
+- cmu_lti
+encoded_ctx_files: []
+out_file: /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.json
+match: string
+n_docs: 100
+validation_workers: 16
+batch_size: 128
+do_lower_case: true
+encoder_path: null
+index_path: null
+kilt_out_file: null
+model_file: /home/ec2-user/11711-a2/DPR/dpr/workdir/dpr_biencoder.29
+validate_as_tables: false
+rpc_retriever_cfg_file: null
+rpc_index_id: null
+use_l2_conversion: false
+use_rpc_meta: false
+rpc_meta_compressed: false
+indexer: flat
+special_tokens: null
+local_rank: -1
+global_loss_buf_sz: 150000
+device: cuda
+distributed_world_size: 1
+distributed_port: null
+no_cuda: false
+n_gpu: 1
+fp16: false
+fp16_opt_level: O1
+
+[2024-03-12 15:27:55,781][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 15:27:55,922][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 15:27:56,095][root][INFO] - Loading saved model state ...
+[2024-03-12 15:27:56,161][root][INFO] - Selecting standard question encoder
+[2024-03-12 15:27:56,358][root][INFO] - Encoder vector_size=768
+[2024-03-12 15:27:56,358][root][INFO] - qa_dataset: cmu_lti_qa
+[2024-03-12 15:27:56,392][root][INFO] - questions len 4167
+[2024-03-12 15:27:56,393][root][INFO] - questions_text len 0
+[2024-03-12 15:27:56,393][root][INFO] - Local Index class <class 'dpr.indexer.faiss_indexers.DenseFlatIndexer'> 
+[2024-03-12 15:27:56,393][root][INFO] - Using special token None
+[2024-03-12 15:28:09,085][root][INFO] - Encoded queries 3200
+[2024-03-12 15:28:12,813][root][INFO] - Total encoded queries tensor torch.Size([4167, 768])
+[2024-03-12 15:28:12,815][root][INFO] - ctx_sources: <class 'dpr.data.retriever_data.CsvCtxSrc'>
+[2024-03-12 15:28:12,815][root][INFO] - id_prefixes per dataset: ['cmu_lti:']
+[2024-03-12 15:28:12,815][root][INFO] - ctx_files_patterns: []

@@ -1,0 +1,125 @@
+[2024-03-12 17:05:31,199][root][INFO] - CFG's local_rank=-1
+[2024-03-12 17:05:31,199][root][INFO] - Env WORLD_SIZE=None
+[2024-03-12 17:05:31,199][root][INFO] - Initialized host ip-172-31-67-199.ec2.internal as d.rank -1 on device=cuda, n_gpu=1, world size=1
+[2024-03-12 17:05:31,199][root][INFO] - 16-bits training: False 
+[2024-03-12 17:05:31,199][root][INFO] - Reading saved model from /home/ec2-user/11711-a2/DPR/dpr/workdir/dpr_biencoder.29
+[2024-03-12 17:05:31,998][root][INFO] - model_state_dict keys dict_keys(['model_dict', 'optimizer_dict', 'scheduler_dict', 'offset', 'epoch', 'encoder_params'])
+[2024-03-12 17:05:31,999][root][INFO] - CFG (after gpu  configuration):
+[2024-03-12 17:05:32,004][root][INFO] - encoder:
+  encoder_model_type: hf_bert
+  pretrained_model_cfg: bert-base-uncased
+  pretrained_file: null
+  projection_dim: 0
+  sequence_length: 256
+  dropout: 0.1
+  fix_ctx_encoder: false
+  pretrained: true
+datasets:
+  cmu_lti_qa:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/qa_lst.csv
+  nq_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-test
+  nq_train:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-train
+  nq_dev:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.nq-dev
+  trivia_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-test
+  trivia_train:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-train
+  trivia_dev:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.trivia-dev
+  webq_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.webq-test
+  curatedtrec_test:
+    _target_: dpr.data.retriever_data.CsvQASrc
+    file: data.retriever.qas.curatedtrec-test
+ctx_sources:
+  dpr_wiki:
+    _target_: dpr.data.retriever_data.CsvCtxSrc
+    file: data.wikipedia_split.psgs_w100
+    id_prefix: 'wiki:'
+  cmu_lti:
+    _target_: dpr.data.retriever_data.CsvCtxSrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/chunked_doc.tsv
+    id_prefix: 'cmu_lti:'
+indexers:
+  flat:
+    _target_: dpr.indexer.faiss_indexers.DenseFlatIndexer
+  hnsw:
+    _target_: dpr.indexer.faiss_indexers.DenseHNSWFlatIndexer
+  hnsw_sq:
+    _target_: dpr.indexer.faiss_indexers.DenseHNSWSQIndexer
+qa_dataset: cmu_lti_qa
+ctx_datatsets:
+- cmu_lti
+encoded_ctx_files:
+- /home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb_0*
+out_file: /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.json
+match: string
+n_docs: 100
+validation_workers: 16
+batch_size: 128
+do_lower_case: true
+encoder_path: null
+index_path: null
+kilt_out_file: null
+model_file: /home/ec2-user/11711-a2/DPR/dpr/workdir/dpr_biencoder.29
+validate_as_tables: false
+rpc_retriever_cfg_file: null
+rpc_index_id: null
+use_l2_conversion: false
+use_rpc_meta: false
+rpc_meta_compressed: false
+indexer: flat
+special_tokens: null
+local_rank: -1
+global_loss_buf_sz: 150000
+device: cuda
+distributed_world_size: 1
+distributed_port: null
+no_cuda: false
+n_gpu: 1
+fp16: false
+fp16_opt_level: O1
+
+[2024-03-12 17:05:32,993][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 17:05:33,139][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 17:05:33,302][root][INFO] - Loading saved model state ...
+[2024-03-12 17:05:33,367][root][INFO] - Selecting standard question encoder
+[2024-03-12 17:05:33,568][root][INFO] - Encoder vector_size=768
+[2024-03-12 17:05:33,568][root][INFO] - qa_dataset: cmu_lti_qa
+[2024-03-12 17:05:33,601][root][INFO] - questions len 4167
+[2024-03-12 17:05:33,601][root][INFO] - questions_text len 0
+[2024-03-12 17:05:33,602][root][INFO] - Local Index class <class 'dpr.indexer.faiss_indexers.DenseFlatIndexer'> 
+[2024-03-12 17:05:33,602][root][INFO] - Using special token None
+[2024-03-12 17:05:46,265][root][INFO] - Encoded queries 3200
+[2024-03-12 17:05:49,991][root][INFO] - Total encoded queries tensor torch.Size([4167, 768])
+[2024-03-12 17:05:49,994][root][INFO] - ctx_sources: <class 'dpr.data.retriever_data.CsvCtxSrc'>
+[2024-03-12 17:05:49,994][root][INFO] - id_prefixes per dataset: ['cmu_lti:']
+[2024-03-12 17:05:49,994][root][INFO] - ctx_files_patterns: ['/home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb_0*']
+[2024-03-12 17:05:49,994][root][INFO] - Embeddings files id prefixes: ['cmu_lti:']
+[2024-03-12 17:05:49,994][root][INFO] - Reading all passages data from files: ['/home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb_0']
+[2024-03-12 17:05:49,994][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb_0
+[2024-03-12 17:05:50,071][root][INFO] - data indexed 14171
+[2024-03-12 17:05:50,071][root][INFO] - Total data indexed 14171
+[2024-03-12 17:05:50,071][root][INFO] - Data indexing completed.
+[2024-03-12 17:05:50,721][root][INFO] - index search time: 0.647518 sec.
+[2024-03-12 17:05:50,722][dpr.data.retriever_data][INFO] - Reading file /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/chunked_doc.tsv
+[2024-03-12 17:05:50,872][root][INFO] - Loaded ctx data: 14171
+[2024-03-12 17:05:50,872][root][INFO] - validating passages. size=14171
+[2024-03-12 17:05:50,872][dpr.data.qa_validation][INFO] - all_docs size 14171
+[2024-03-12 17:05:50,872][dpr.data.qa_validation][INFO] - dpr_all_documents size 14171
+[2024-03-12 17:05:51,177][dpr.data.qa_validation][INFO] - Matching answers in top docs...
+[2024-03-12 17:05:57,551][dpr.data.qa_validation][INFO] - Per question validation results len=4167
+[2024-03-12 17:05:57,662][root][INFO] - Validation results: top k documents hits [26, 39, 44, 52, 61, 67, 72, 77, 80, 82, 83, 84, 86, 88, 89, 94, 97, 98, 100, 103, 103, 106, 107, 107, 109, 112, 113, 114, 117, 120, 120, 120, 126, 129, 132, 136, 137, 138, 138, 139, 139, 143, 143, 144, 144, 146, 146, 147, 149, 150, 151, 151, 151, 151, 154, 154, 156, 156, 157, 157, 159, 159, 159, 159, 160, 162, 162, 162, 165, 165, 165, 166, 166, 166, 166, 168, 168, 168, 168, 168, 168, 168, 168, 168, 169, 169, 169, 170, 171, 172, 172, 172, 172, 172, 173, 173, 174, 174, 174, 174]
+[2024-03-12 17:05:57,662][root][INFO] - Validation results: top k documents hits accuracy [0.006239500839932805, 0.009359251259899209, 0.010559155267578594, 0.01247900167986561, 0.014638828893688505, 0.016078713702903768, 0.017278617710583154, 0.018478521718262537, 0.01919846412287017, 0.019678425725941924, 0.0199184065274778, 0.020158387329013677, 0.020638348932085434, 0.021118310535157187, 0.021358291336693064, 0.02255819534437245, 0.02327813774898008, 0.02351811855051596, 0.023998080153587713, 0.024718022558195343, 0.024718022558195343, 0.025437964962802977, 0.025677945764338853, 0.025677945764338853, 0.026157907367410606, 0.02687784977201824, 0.027117830573554116, 0.027357811375089993, 0.028077753779697623, 0.028797696184305256, 0.028797696184305256, 0.028797696184305256, 0.03023758099352052, 0.03095752339812815, 0.03167746580273578, 0.03263738900887929, 0.03287736981041517, 0.03311735061195104, 0.03311735061195104, 0.03335733141348692, 0.03335733141348692, 0.03431725461963043, 0.03431725461963043, 0.03455723542116631, 0.03455723542116631, 0.03503719702423806, 0.03503719702423806, 0.035277177825773935, 0.035757139428845695, 0.03599712023038157, 0.03623710103191745, 0.03623710103191745, 0.03623710103191745, 0.03623710103191745, 0.036957043436525075, 0.036957043436525075, 0.037437005039596835, 0.037437005039596835, 0.03767698584113271, 0.03767698584113271, 0.03815694744420446, 0.03815694744420446, 0.03815694744420446, 0.03815694744420446, 0.03839692824574034, 0.038876889848812095, 0.038876889848812095, 0.038876889848812095, 0.03959683225341973, 0.03959683225341973, 0.03959683225341973, 0.0398368130549556, 0.0398368130549556, 0.0398368130549556, 0.0398368130549556, 0.040316774658027354, 0.040316774658027354, 0.040316774658027354, 0.040316774658027354, 0.040316774658027354, 0.040316774658027354, 0.040316774658027354, 0.040316774658027354, 0.040316774658027354, 0.040556755459563235, 0.040556755459563235, 0.040556755459563235, 0.040796736261099115, 0.04103671706263499, 0.04127669786417087, 0.04127669786417087, 0.04127669786417087, 0.04127669786417087, 0.04127669786417087, 0.04151667866570674, 0.04151667866570674, 0.04175665946724262, 0.04175665946724262, 0.04175665946724262, 0.04175665946724262]
+[2024-03-12 17:06:00,822][root][INFO] - Saved results * scores  to /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.json

@@ -1,0 +1,105 @@
+[2024-03-12 15:46:05,540][root][INFO] - CFG's local_rank=-1
+[2024-03-12 15:46:05,541][root][INFO] - Env WORLD_SIZE=None
+[2024-03-12 15:46:05,541][root][INFO] - Initialized host ip-172-31-67-199.ec2.internal as d.rank -1 on device=cuda, n_gpu=1, world size=1
+[2024-03-12 15:46:05,541][root][INFO] - 16-bits training: False 
+[2024-03-12 15:46:05,542][root][INFO] - CFG (after gpu  configuration):
+[2024-03-12 15:46:05,545][root][INFO] - encoder:
+  encoder_model_type: hf_bert
+  pretrained_model_cfg: bert-base-uncased
+  pretrained_file: null
+  projection_dim: 0
+  sequence_length: 512
+  dropout: 0.1
+  fix_ctx_encoder: false
+  pretrained: true
+train:
+  eval_step: 2000
+  batch_size: 16
+  dev_batch_size: 24
+  adam_eps: 1.0e-08
+  adam_betas: (0.9, 0.999)
+  max_grad_norm: 1.0
+  log_batch_step: 100
+  train_rolling_loss_step: 100
+  weight_decay: 0.0
+  learning_rate: 1.0e-05
+  warmup_steps: 0
+  gradient_accumulation_steps: 1
+  num_train_epochs: 100000
+model_file: dpr/downloads/checkpoint/reader/nq-trivia-hybrid/hf-bert-base.cp
+do_lower_case: true
+seed: 42
+train_files: null
+dev_files: /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.json
+passages_per_question: 24
+passages_per_question_predict: 20
+output_dir: null
+max_n_answers: 10
+max_answer_length: 40
+eval_top_docs:
+- 20
+- 100
+checkpoint_file_name: dpr_extractive_reader
+prediction_results_file: /home/ec2-user/11711-a2/DPR/dpr/workdir/test_reader_output.json
+fully_resumable: false
+gold_passages_src: null
+gold_passages_src_dev: null
+num_workers: 16
+local_rank: -1
+global_loss_buf_sz: 150000
+device: cuda
+distributed_world_size: 1
+distributed_port: null
+no_cuda: false
+n_gpu: 1
+fp16: false
+fp16_opt_level: O1
+special_tokens: null
+
+[2024-03-12 15:46:05,545][root][INFO] - ***** Initializing components for training *****
+[2024-03-12 15:46:05,545][root][INFO] - Checkpoint files []
+[2024-03-12 15:46:06,436][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 15:46:06,819][root][INFO] - No train files are specified. Run validation.
+[2024-03-12 15:46:06,820][root][INFO] - Validation ...
+[2024-03-12 15:46:06,820][root][INFO] - Data files: ['/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.json']
+[2024-03-12 15:46:06,821][root][INFO] - Found preprocessed files. ['/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.15.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.2.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.8.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.1.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.7.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.14.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.9.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.4.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.0.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.3.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.11.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.6.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.12.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.5.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.13.pkl', '/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.10.pkl']
+[2024-03-12 15:46:06,821][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.15.pkl
+[2024-03-12 15:46:06,993][root][INFO] - Aggregated data size: 252
+[2024-03-12 15:46:06,994][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.2.pkl
+[2024-03-12 15:46:07,080][root][INFO] - Aggregated data size: 513
+[2024-03-12 15:46:07,080][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.8.pkl
+[2024-03-12 15:46:07,170][root][INFO] - Aggregated data size: 774
+[2024-03-12 15:46:07,170][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.1.pkl
+[2024-03-12 15:46:07,366][root][INFO] - Aggregated data size: 1035
+[2024-03-12 15:46:07,367][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.7.pkl
+[2024-03-12 15:46:07,460][root][INFO] - Aggregated data size: 1296
+[2024-03-12 15:46:07,461][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.14.pkl
+[2024-03-12 15:46:07,554][root][INFO] - Aggregated data size: 1557
+[2024-03-12 15:46:07,554][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.9.pkl
+[2024-03-12 15:46:07,771][root][INFO] - Aggregated data size: 1818
+[2024-03-12 15:46:07,771][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.4.pkl
+[2024-03-12 15:46:07,863][root][INFO] - Aggregated data size: 2079
+[2024-03-12 15:46:07,865][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.0.pkl
+[2024-03-12 15:46:07,959][root][INFO] - Aggregated data size: 2340
+[2024-03-12 15:46:07,961][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.3.pkl
+[2024-03-12 15:46:08,056][root][INFO] - Aggregated data size: 2601
+[2024-03-12 15:46:08,058][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.11.pkl
+[2024-03-12 15:46:08,305][root][INFO] - Aggregated data size: 2862
+[2024-03-12 15:46:08,308][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.6.pkl
+[2024-03-12 15:46:08,404][root][INFO] - Aggregated data size: 3123
+[2024-03-12 15:46:08,406][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.12.pkl
+[2024-03-12 15:46:08,502][root][INFO] - Aggregated data size: 3384
+[2024-03-12 15:46:08,504][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.5.pkl
+[2024-03-12 15:46:08,600][root][INFO] - Aggregated data size: 3645
+[2024-03-12 15:46:08,602][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.13.pkl
+[2024-03-12 15:46:08,697][root][INFO] - Aggregated data size: 3906
+[2024-03-12 15:46:08,700][root][INFO] - Reading file /home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.10.pkl
+[2024-03-12 15:46:08,796][root][INFO] - Aggregated data size: 4167
+[2024-03-12 15:46:08,798][root][INFO] - Total data size: 4167
+[2024-03-12 15:46:08,798][root][INFO] - Calculating shard positions
+[2024-03-12 15:46:08,798][root][INFO] - samples_per_shard=4167, shard_start_idx=0, shard_end_idx=4167, max_iterations=173
+[2024-03-12 15:55:30,528][root][INFO] - Eval step: 99 
+[2024-03-12 16:02:47,041][root][INFO] - Finished iterating, iteration=174, shard=0
+[2024-03-12 16:02:47,226][root][INFO] - n=20	EM 0.02
+[2024-03-12 16:02:47,227][root][INFO] - n=100	EM 0.02
+[2024-03-12 16:02:47,227][root][INFO] - Saving prediction results to  /home/ec2-user/11711-a2/DPR/dpr/workdir/test_reader_output.json

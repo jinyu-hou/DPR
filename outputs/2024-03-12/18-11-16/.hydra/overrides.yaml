@@ -1,0 +1,5 @@
+- model_file=/home/ec2-user/11711-a2/DPR/dpr/workdir_0/dpr_biencoder.29
+- qa_dataset=cmu_lti_qa
+- ctx_datatsets=[cmu_lti]
+- encoded_ctx_files=["/home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb_*"]
+- out_file=/home/ec2-user/11711-a2/DPR/dpr/workdir/test_retriever_output.json

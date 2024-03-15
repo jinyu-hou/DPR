@@ -1,0 +1,69 @@
+[2024-03-12 18:07:06,487][root][INFO] - CFG's local_rank=-1
+[2024-03-12 18:07:06,487][root][INFO] - Env WORLD_SIZE=None
+[2024-03-12 18:07:06,488][root][INFO] - Initialized host ip-172-31-67-199.ec2.internal as d.rank -1 on device=cuda, n_gpu=1, world size=1
+[2024-03-12 18:07:06,488][root][INFO] - 16-bits training: False 
+[2024-03-12 18:07:06,488][root][INFO] - Reading saved model from /home/ec2-user/11711-a2/DPR/dpr/workdir_0/dpr_biencoder.29
+[2024-03-12 18:07:07,304][root][INFO] - model_state_dict keys dict_keys(['model_dict', 'optimizer_dict', 'scheduler_dict', 'offset', 'epoch', 'encoder_params'])
+[2024-03-12 18:07:07,305][root][INFO] - CFG:
+[2024-03-12 18:07:07,308][root][INFO] - encoder:
+  encoder_model_type: hf_bert
+  pretrained_model_cfg: bert-base-uncased
+  pretrained_file: null
+  projection_dim: 0
+  sequence_length: 256
+  dropout: 0.1
+  fix_ctx_encoder: false
+  pretrained: true
+ctx_sources:
+  dpr_wiki:
+    _target_: dpr.data.retriever_data.CsvCtxSrc
+    file: data.wikipedia_split.psgs_w100
+    id_prefix: 'wiki:'
+  cmu_lti:
+    _target_: dpr.data.retriever_data.CsvCtxSrc
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/chunked_doc.tsv
+    id_prefix: 'cmu_lti:'
+model_file: /home/ec2-user/11711-a2/DPR/dpr/workdir_0/dpr_biencoder.29
+ctx_src: cmu_lti
+encoder_type: ctx
+out_file: /home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb
+do_lower_case: true
+shard_id: 0
+num_shards: 1
+batch_size: 32
+tables_as_passages: false
+special_tokens: null
+tables_chunk_sz: 100
+tables_split_type: type1
+local_rank: -1
+device: cuda
+distributed_world_size: 1
+distributed_port: null
+no_cuda: false
+n_gpu: 1
+fp16: false
+fp16_opt_level: O1
+
+[2024-03-12 18:07:08,220][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 18:07:08,377][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 18:07:08,842][root][INFO] - Loading saved model state ...
+[2024-03-12 18:07:08,888][root][INFO] - reading data source: cmu_lti
+[2024-03-12 18:07:08,890][dpr.data.retriever_data][INFO] - Reading file /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/chunked_doc.tsv
+[2024-03-12 18:07:08,912][root][INFO] - Producing encodings for passages range: 0 to 2501 (out of total 2501)
+[2024-03-12 18:07:10,419][root][INFO] - Encoded passages 160
+[2024-03-12 18:07:11,487][root][INFO] - Encoded passages 320
+[2024-03-12 18:07:12,551][root][INFO] - Encoded passages 480
+[2024-03-12 18:07:13,602][root][INFO] - Encoded passages 640
+[2024-03-12 18:07:14,639][root][INFO] - Encoded passages 800
+[2024-03-12 18:07:15,632][root][INFO] - Encoded passages 960
+[2024-03-12 18:07:16,634][root][INFO] - Encoded passages 1120
+[2024-03-12 18:07:17,720][root][INFO] - Encoded passages 1280
+[2024-03-12 18:07:18,813][root][INFO] - Encoded passages 1440
+[2024-03-12 18:07:19,903][root][INFO] - Encoded passages 1600
+[2024-03-12 18:07:20,992][root][INFO] - Encoded passages 1760
+[2024-03-12 18:07:22,081][root][INFO] - Encoded passages 1920
+[2024-03-12 18:07:23,164][root][INFO] - Encoded passages 2080
+[2024-03-12 18:07:24,250][root][INFO] - Encoded passages 2240
+[2024-03-12 18:07:25,330][root][INFO] - Encoded passages 2400
+[2024-03-12 18:07:25,982][root][INFO] - Writing results to /home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb_0
+[2024-03-12 18:07:25,994][root][INFO] - Total passages processed 2501. Written to /home/ec2-user/11711-a2/DPR/dpr/workdir/ctx_emb_0

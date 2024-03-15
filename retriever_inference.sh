@@ -1,6 +1,6 @@
 python dense_retriever.py \
-	model_file=/jet/home/jhou/project/DPR/dpr/downloads/checkpoint/retriever/multiset/bert-base-encoder.cp \
-	qa_dataset=cmu_lti_qa \
-	ctx_datatsets=[cmu_lti] \
-	encoded_ctx_files=[\"/jet/home/jhou/project/11711-End-to-end-NLP-System-Building/cmu_lti*\"] \
-	out_file=/jet/home/jhou/project/11711-End-to-end-NLP-System-Building/no_ft/retriever_output.json
+	model_file=/home/ec2-user/11711-a2/DPR/dpr/downloads/checkpoint/retriever/single-adv-hn/nq/bert-base-encoder.cp \
+	qa_dataset=cmu_qa \
+	ctx_datatsets=[cmu_lti,cmu_lti_papers] \
+	encoded_ctx_files=[\"/home/ec2-user/11711-a2/data/context_emb/ctx_emb_*\",\"/home/ec2-user/11711-a2/data/context_emb/ctx_emb_papers_*\"] \
+	out_file=/home/ec2-user/11711-a2/data/retriever_outputs/adv_cmuqa_retriever_output.json

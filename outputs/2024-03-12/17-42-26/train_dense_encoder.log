@@ -1,0 +1,190 @@
+[2024-03-12 17:42:27,041][root][INFO] - CFG's local_rank=-1
+[2024-03-12 17:42:27,042][root][INFO] - Env WORLD_SIZE=None
+[2024-03-12 17:42:27,042][root][INFO] - Initialized host ip-172-31-67-199.ec2.internal as d.rank -1 on device=cuda, n_gpu=1, world size=1
+[2024-03-12 17:42:27,042][root][INFO] - 16-bits training: False 
+[2024-03-12 17:42:27,043][root][INFO] - CFG (after gpu  configuration):
+[2024-03-12 17:42:27,049][root][INFO] - encoder:
+  encoder_model_type: hf_bert
+  pretrained_model_cfg: bert-large-uncased
+  pretrained_file: null
+  projection_dim: 0
+  sequence_length: 512
+  dropout: 0.1
+  fix_ctx_encoder: false
+  pretrained: true
+train:
+  batch_size: 1
+  dev_batch_size: 1
+  adam_eps: 1.0e-08
+  adam_betas: (0.9, 0.999)
+  max_grad_norm: 2.0
+  log_batch_step: 1
+  train_rolling_loss_step: 100
+  weight_decay: 0.0
+  learning_rate: 2.0e-05
+  warmup_steps: 1237
+  gradient_accumulation_steps: 1
+  num_train_epochs: 10
+  eval_per_epoch: 1
+  hard_negatives: 1
+  other_negatives: 0
+  val_av_rank_hard_neg: 30
+  val_av_rank_other_neg: 30
+  val_av_rank_bsz: 128
+  val_av_rank_max_qs: 10000
+datasets:
+  cmu_lti_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_train.json
+  cmu_lti_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_dev.json
+  nq_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.nq-train
+  nq_train_hn1:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.nq-adv-hn-train
+  nq_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.nq-dev
+  trivia_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.trivia-train
+  trivia_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.trivia-dev
+  squad1_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.squad1-train
+  squad1_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.squad1-dev
+  webq_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.webq-train
+  webq_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.webq-dev
+  curatedtrec_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.curatedtrec-train
+  curatedtrec_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.curatedtrec-dev
+train_datasets:
+- cmu_lti_train
+dev_datasets:
+- cmu_lti_dev
+output_dir: /home/ec2-user/11711-a2/DPR/dpr/workdir
+train_sampling_rates: null
+loss_scale_factors: null
+do_lower_case: true
+val_av_rank_start_epoch: 30
+seed: 12345
+checkpoint_file_name: dpr_biencoder
+model_file: null
+local_rank: -1
+global_loss_buf_sz: 592000
+device: cuda
+distributed_world_size: 1
+distributed_port: null
+distributed_init_method: null
+no_cuda: false
+n_gpu: 1
+fp16: false
+fp16_opt_level: O1
+special_tokens: null
+ignore_checkpoint_offset: false
+ignore_checkpoint_optimizer: false
+ignore_checkpoint_lr: false
+multi_q_encoder: false
+local_shards_dataloader: false
+
+[2024-03-12 17:42:27,049][root][INFO] - ***** Initializing components for training *****
+[2024-03-12 17:42:27,049][root][INFO] - Checkpoint files []
+[2024-03-12 17:42:27,958][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-large-uncased
+[2024-03-12 17:42:28,339][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-large-uncased
+[2024-03-12 17:42:29,107][dpr.utils.conf_utils][INFO] - train_datasets: ['cmu_lti_train']
+[2024-03-12 17:42:29,108][dpr.utils.conf_utils][INFO] - dev_datasets: ['cmu_lti_dev']
+[2024-03-12 17:42:29,109][root][INFO] - Initializing task/set data ['cmu_lti_train']
+[2024-03-12 17:42:29,109][root][INFO] - Calculating shard positions
+[2024-03-12 17:42:29,109][dpr.data.biencoder_data][INFO] - Loading all data
+[2024-03-12 17:42:29,109][dpr.data.biencoder_data][INFO] - Data files: ['/home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_train.json']
+[2024-03-12 17:42:29,109][root][INFO] - Reading file /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_train.json
+[2024-03-12 17:42:31,816][root][INFO] - Aggregated data size: 15282
+[2024-03-12 17:42:31,820][dpr.data.biencoder_data][INFO] - Total cleaned data size: 15282
+[2024-03-12 17:42:31,820][root][INFO] - samples_per_shard=15282, shard_start_idx=0, shard_end_idx=15282, max_iterations=15282
+[2024-03-12 17:42:31,821][root][INFO] - Sharded dataset data 15282
+[2024-03-12 17:42:31,821][root][INFO] - rank=-1; Multi set data sizes [15282]
+[2024-03-12 17:42:31,821][root][INFO] - rank=-1; Multi set total data 15282
+[2024-03-12 17:42:31,821][root][INFO] - rank=-1; Multi set sampling_rates None
+[2024-03-12 17:42:31,821][root][INFO] - rank=-1; Multi set max_iterations per dataset [15282]
+[2024-03-12 17:42:31,821][root][INFO] - rank=-1; Multi set max_iterations 15282
+[2024-03-12 17:42:31,821][root][INFO] -   Total iterations per epoch=15282
+[2024-03-12 17:42:31,821][root][INFO] -  Total updates=152820
+[2024-03-12 17:42:31,821][root][INFO] -   Eval step = 15282
+[2024-03-12 17:42:31,821][root][INFO] - ***** Training *****
+[2024-03-12 17:42:31,821][root][INFO] - ***** Epoch 0 *****
+[2024-03-12 17:42:31,824][root][INFO] - rank=-1; Iteration start
+[2024-03-12 17:42:31,824][root][INFO] - rank=-1; Multi set iteration: iteration ptr per set: [0]
+[2024-03-12 17:42:31,824][root][INFO] - rank=-1; Multi set iteration: source 0, batches to be taken: 15282
+[2024-03-12 17:42:31,830][root][INFO] - rank=-1; data_src_indices len=15282
+[2024-03-12 17:42:32,811][root][INFO] - Epoch: 0: Step: 1/15282, loss=82.550278, lr=0.000000
+[2024-03-12 17:42:33,207][root][INFO] - Epoch: 0: Step: 2/15282, loss=0.000005, lr=0.000000
+[2024-03-12 17:42:33,604][root][INFO] - Epoch: 0: Step: 3/15282, loss=5.155094, lr=0.000000
+[2024-03-12 17:42:34,000][root][INFO] - Epoch: 0: Step: 4/15282, loss=0.000000, lr=0.000000
+[2024-03-12 17:42:34,396][root][INFO] - Epoch: 0: Step: 5/15282, loss=0.001595, lr=0.000000
+[2024-03-12 17:42:34,792][root][INFO] - Epoch: 0: Step: 6/15282, loss=0.000005, lr=0.000000
+[2024-03-12 17:42:35,188][root][INFO] - Epoch: 0: Step: 7/15282, loss=0.227957, lr=0.000000
+[2024-03-12 17:42:35,584][root][INFO] - Epoch: 0: Step: 8/15282, loss=0.083751, lr=0.000000
+[2024-03-12 17:42:35,980][root][INFO] - Epoch: 0: Step: 9/15282, loss=19.756653, lr=0.000000
+[2024-03-12 17:42:36,377][root][INFO] - Epoch: 0: Step: 10/15282, loss=0.001429, lr=0.000000
+[2024-03-12 17:42:36,773][root][INFO] - Epoch: 0: Step: 11/15282, loss=0.000000, lr=0.000000
+[2024-03-12 17:42:37,169][root][INFO] - Epoch: 0: Step: 12/15282, loss=1.297058, lr=0.000000
+[2024-03-12 17:42:37,565][root][INFO] - Epoch: 0: Step: 13/15282, loss=0.000000, lr=0.000000
+[2024-03-12 17:42:37,961][root][INFO] - Epoch: 0: Step: 14/15282, loss=0.000000, lr=0.000000
+[2024-03-12 17:42:38,357][root][INFO] - Epoch: 0: Step: 15/15282, loss=151.284912, lr=0.000000
+[2024-03-12 17:42:38,753][root][INFO] - Epoch: 0: Step: 16/15282, loss=11.487437, lr=0.000000
+[2024-03-12 17:42:39,149][root][INFO] - Epoch: 0: Step: 17/15282, loss=0.000000, lr=0.000000
+[2024-03-12 17:42:39,546][root][INFO] - Epoch: 0: Step: 18/15282, loss=10.996462, lr=0.000000
+[2024-03-12 17:42:39,942][root][INFO] - Epoch: 0: Step: 19/15282, loss=0.000150, lr=0.000000
+[2024-03-12 17:42:40,339][root][INFO] - Epoch: 0: Step: 20/15282, loss=0.000000, lr=0.000000
+[2024-03-12 17:42:40,736][root][INFO] - Epoch: 0: Step: 21/15282, loss=81.319061, lr=0.000000
+[2024-03-12 17:42:41,132][root][INFO] - Epoch: 0: Step: 22/15282, loss=0.039901, lr=0.000000
+[2024-03-12 17:42:41,529][root][INFO] - Epoch: 0: Step: 23/15282, loss=16.035507, lr=0.000000
+[2024-03-12 17:42:41,925][root][INFO] - Epoch: 0: Step: 24/15282, loss=10.316363, lr=0.000000
+[2024-03-12 17:42:42,322][root][INFO] - Epoch: 0: Step: 25/15282, loss=40.011108, lr=0.000000
+[2024-03-12 17:42:42,718][root][INFO] - Epoch: 0: Step: 26/15282, loss=19.794403, lr=0.000000
+[2024-03-12 17:42:43,115][root][INFO] - Epoch: 0: Step: 27/15282, loss=14.034486, lr=0.000000
+[2024-03-12 17:42:43,511][root][INFO] - Epoch: 0: Step: 28/15282, loss=0.000000, lr=0.000000
+[2024-03-12 17:42:43,909][root][INFO] - Epoch: 0: Step: 29/15282, loss=0.000000, lr=0.000000
+[2024-03-12 17:42:44,304][root][INFO] - Epoch: 0: Step: 30/15282, loss=6.907396, lr=0.000000
+[2024-03-12 17:42:44,701][root][INFO] - Epoch: 0: Step: 31/15282, loss=0.000000, lr=0.000001
+[2024-03-12 17:42:45,098][root][INFO] - Epoch: 0: Step: 32/15282, loss=0.000000, lr=0.000001
+[2024-03-12 17:42:45,495][root][INFO] - Epoch: 0: Step: 33/15282, loss=7.348620, lr=0.000001
+[2024-03-12 17:42:45,891][root][INFO] - Epoch: 0: Step: 34/15282, loss=11.636308, lr=0.000001
+[2024-03-12 17:42:46,288][root][INFO] - Epoch: 0: Step: 35/15282, loss=0.000480, lr=0.000001
+[2024-03-12 17:42:46,684][root][INFO] - Epoch: 0: Step: 36/15282, loss=0.000000, lr=0.000001
+[2024-03-12 17:42:47,081][root][INFO] - Epoch: 0: Step: 37/15282, loss=3.357966, lr=0.000001
+[2024-03-12 17:42:47,478][root][INFO] - Epoch: 0: Step: 38/15282, loss=2.379405, lr=0.000001
+[2024-03-12 17:42:47,875][root][INFO] - Epoch: 0: Step: 39/15282, loss=0.413585, lr=0.000001
+[2024-03-12 17:42:48,272][root][INFO] - Epoch: 0: Step: 40/15282, loss=0.000000, lr=0.000001
+[2024-03-12 17:42:48,669][root][INFO] - Epoch: 0: Step: 41/15282, loss=0.022642, lr=0.000001
+[2024-03-12 17:42:49,066][root][INFO] - Epoch: 0: Step: 42/15282, loss=0.000000, lr=0.000001
+[2024-03-12 17:42:49,462][root][INFO] - Epoch: 0: Step: 43/15282, loss=0.045083, lr=0.000001
+[2024-03-12 17:42:49,859][root][INFO] - Epoch: 0: Step: 44/15282, loss=35.528030, lr=0.000001
+[2024-03-12 17:42:50,256][root][INFO] - Epoch: 0: Step: 45/15282, loss=29.292587, lr=0.000001
+[2024-03-12 17:42:50,653][root][INFO] - Epoch: 0: Step: 46/15282, loss=12.254628, lr=0.000001
+[2024-03-12 17:42:51,050][root][INFO] - Epoch: 0: Step: 47/15282, loss=8.914914, lr=0.000001
+[2024-03-12 17:42:51,447][root][INFO] - Epoch: 0: Step: 48/15282, loss=0.065272, lr=0.000001
+[2024-03-12 17:42:51,844][root][INFO] - Epoch: 0: Step: 49/15282, loss=0.000012, lr=0.000001
+[2024-03-12 17:42:52,241][root][INFO] - Epoch: 0: Step: 50/15282, loss=65.274292, lr=0.000001
+[2024-03-12 17:42:52,638][root][INFO] - Epoch: 0: Step: 51/15282, loss=9.298325, lr=0.000001
+[2024-03-12 17:42:53,035][root][INFO] - Epoch: 0: Step: 52/15282, loss=1.414086, lr=0.000001
+[2024-03-12 17:42:53,433][root][INFO] - Epoch: 0: Step: 53/15282, loss=16.249084, lr=0.000001
+[2024-03-12 17:42:53,830][root][INFO] - Epoch: 0: Step: 54/15282, loss=0.008291, lr=0.000001
+[2024-03-12 17:42:54,228][root][INFO] - Epoch: 0: Step: 55/15282, loss=2.744509, lr=0.000001
+[2024-03-12 17:42:54,626][root][INFO] - Epoch: 0: Step: 56/15282, loss=92.927582, lr=0.000001
+[2024-03-12 17:42:55,023][root][INFO] - Epoch: 0: Step: 57/15282, loss=23.853062, lr=0.000001
+[2024-03-12 17:42:55,421][root][INFO] - Epoch: 0: Step: 58/15282, loss=27.686142, lr=0.000001

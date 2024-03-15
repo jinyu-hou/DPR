@@ -1,0 +1,5 @@
+[2024-03-14 22:51:49,524][root][INFO] - CFG's local_rank=-1
+[2024-03-14 22:51:49,524][root][INFO] - Env WORLD_SIZE=None
+[2024-03-14 22:51:49,524][root][INFO] - Initialized host ip-172-31-67-199.ec2.internal as d.rank -1 on device=cuda, n_gpu=1, world size=1
+[2024-03-14 22:51:49,524][root][INFO] - 16-bits training: False 
+[2024-03-14 22:51:49,525][root][INFO] - Reading saved model from /home/ec2-user/11711-a2/DPR/dpr/downloads/checkpoint/retriever/multiset/bert-base-encoder.cp

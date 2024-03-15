@@ -1,5 +1,21 @@
 # @package _group_
 
+test_qa:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: /home/ec2-user/11711-a2/data/qa_csv/test_qa.csv
+
+cmu_qa:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: /home/ec2-user/11711-a2/data/qa_csv/cmu_qa.csv
+
+cmu_qa_train:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_qa_train.csv
+
+cmu_qa_dev:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_qa_dev.csv
+  
 nq_test:
   _target_: dpr.data.retriever_data.CsvQASrc
   file: data.retriever.qas.nq-test
@@ -32,8 +48,4 @@ webq_test:
 curatedtrec_test:
   _target_: dpr.data.retriever_data.CsvQASrc
   file: data.retriever.qas.curatedtrec-test
-
-cmu_lti_qa:
-  _target_: dpr.data.retriever_data.CsvQASrc
-  file: /jet/home/jhou/project/11711-End-to-end-NLP-System-Building/qa_lst.csv
 

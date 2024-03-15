@@ -7,5 +7,10 @@ dpr_wiki:
 
 cmu_lti:
   _target_: dpr.data.retriever_data.CsvCtxSrc
-  file: /jet/home/jhou/project/11711-End-to-end-NLP-System-Building/chunked_doc.tsv
+  file: /home/ec2-user/11711-a2/data/chunked_contexts/chunked_doc.tsv
+  id_prefix: 'cmu_lti:'
+
+cmu_lti_papers:
+  _target_: dpr.data.retriever_data.CsvCtxSrc
+  file: /home/ec2-user/11711-a2/data/chunked_contexts/chunked_doc_papers.tsv
   id_prefix: 'cmu_lti:'

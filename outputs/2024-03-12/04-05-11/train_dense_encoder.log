@@ -1,0 +1,535 @@
+[2024-03-12 04:05:11,802][root][INFO] - CFG's local_rank=-1
+[2024-03-12 04:05:11,802][root][INFO] - Env WORLD_SIZE=None
+[2024-03-12 04:05:11,803][root][INFO] - Initialized host ip-172-31-67-199.ec2.internal as d.rank -1 on device=cuda, n_gpu=1, world size=1
+[2024-03-12 04:05:11,803][root][INFO] - 16-bits training: False 
+[2024-03-12 04:05:11,805][root][INFO] - CFG (after gpu  configuration):
+[2024-03-12 04:05:11,810][root][INFO] - encoder:
+  encoder_model_type: hf_bert
+  pretrained_model_cfg: bert-base-uncased
+  pretrained_file: null
+  projection_dim: 0
+  sequence_length: 256
+  dropout: 0.1
+  fix_ctx_encoder: false
+  pretrained: true
+train:
+  batch_size: 1
+  dev_batch_size: 16
+  adam_eps: 1.0e-08
+  adam_betas: (0.9, 0.999)
+  max_grad_norm: 2.0
+  log_batch_step: 1
+  train_rolling_loss_step: 100
+  weight_decay: 0.0
+  learning_rate: 2.0e-05
+  warmup_steps: 1237
+  gradient_accumulation_steps: 1
+  num_train_epochs: 40
+  eval_per_epoch: 1
+  hard_negatives: 1
+  other_negatives: 0
+  val_av_rank_hard_neg: 30
+  val_av_rank_other_neg: 30
+  val_av_rank_bsz: 128
+  val_av_rank_max_qs: 10000
+datasets:
+  cmu_lti_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_train.json
+  cmu_lti_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_dev.json
+  nq_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.nq-train
+  nq_train_hn1:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.nq-adv-hn-train
+  nq_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.nq-dev
+  trivia_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.trivia-train
+  trivia_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.trivia-dev
+  squad1_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.squad1-train
+  squad1_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.squad1-dev
+  webq_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.webq-train
+  webq_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.webq-dev
+  curatedtrec_train:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.curatedtrec-train
+  curatedtrec_dev:
+    _target_: dpr.data.biencoder_data.JsonQADataset
+    file: data.retriever.curatedtrec-dev
+train_datasets:
+- cmu_lti_train
+dev_datasets:
+- cmu_lti_dev
+output_dir: /home/ec2-user/11711-a2/DPR/dpr/workdir
+train_sampling_rates: null
+loss_scale_factors: null
+do_lower_case: true
+val_av_rank_start_epoch: 30
+seed: 12345
+checkpoint_file_name: dpr_biencoder
+model_file: /home/ec2-user/11711-a2/DPR/dpr/downloads/checkpoint/retriever/multiset/bert-base-encoder.cp
+local_rank: -1
+global_loss_buf_sz: 592000
+device: cuda
+distributed_world_size: 1
+distributed_port: null
+distributed_init_method: null
+no_cuda: false
+n_gpu: 1
+fp16: false
+fp16_opt_level: O1
+special_tokens: null
+ignore_checkpoint_offset: false
+ignore_checkpoint_optimizer: false
+ignore_checkpoint_lr: false
+multi_q_encoder: false
+local_shards_dataloader: false
+
+[2024-03-12 04:05:11,811][root][INFO] - ***** Initializing components for training *****
+[2024-03-12 04:05:11,811][root][INFO] - Reading saved model from /home/ec2-user/11711-a2/DPR/dpr/downloads/checkpoint/retriever/multiset/bert-base-encoder.cp
+[2024-03-12 04:05:17,495][root][INFO] - model_state_dict keys odict_keys(['model_dict', 'optimizer_dict', 'scheduler_dict', 'offset', 'epoch', 'encoder_params'])
+[2024-03-12 04:05:18,415][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 04:05:19,756][dpr.models.hf_models][INFO] - Initializing HF BERT Encoder. cfg_name=bert-base-uncased
+[2024-03-12 04:05:20,623][dpr.utils.conf_utils][INFO] - train_datasets: ['cmu_lti_train']
+[2024-03-12 04:05:20,624][dpr.utils.conf_utils][INFO] - dev_datasets: ['cmu_lti_dev']
+[2024-03-12 04:05:20,624][root][INFO] - Loading checkpoint @ batch=0 and epoch=1
+[2024-03-12 04:05:20,624][root][INFO] - Loading saved model state ...
+[2024-03-12 04:05:20,714][root][INFO] - Saved state loaded
+[2024-03-12 04:05:20,737][root][INFO] - Initializing task/set data ['cmu_lti_train']
+[2024-03-12 04:05:20,738][root][INFO] - Calculating shard positions
+[2024-03-12 04:05:20,738][dpr.data.biencoder_data][INFO] - Loading all data
+[2024-03-12 04:05:20,738][dpr.data.biencoder_data][INFO] - Data files: ['/home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_train.json']
+[2024-03-12 04:05:20,738][root][INFO] - Reading file /home/ec2-user/11711-a2/11711-End-to-end-NLP-System-Building/70B_retriever_train.json
+[2024-03-12 04:05:23,470][root][INFO] - Aggregated data size: 15282
+[2024-03-12 04:05:23,475][dpr.data.biencoder_data][INFO] - Total cleaned data size: 15282
+[2024-03-12 04:05:23,475][root][INFO] - samples_per_shard=15282, shard_start_idx=0, shard_end_idx=15282, max_iterations=15282
+[2024-03-12 04:05:23,475][root][INFO] - Sharded dataset data 15282
+[2024-03-12 04:05:23,475][root][INFO] - rank=-1; Multi set data sizes [15282]
+[2024-03-12 04:05:23,475][root][INFO] - rank=-1; Multi set total data 15282
+[2024-03-12 04:05:23,475][root][INFO] - rank=-1; Multi set sampling_rates None
+[2024-03-12 04:05:23,475][root][INFO] - rank=-1; Multi set max_iterations per dataset [15282]
+[2024-03-12 04:05:23,475][root][INFO] - rank=-1; Multi set max_iterations 15282
+[2024-03-12 04:05:23,475][root][INFO] -   Total iterations per epoch=15282
+[2024-03-12 04:05:23,475][root][INFO] -  Total updates=611280
+[2024-03-12 04:05:23,476][root][INFO] -   Eval step = 15282
+[2024-03-12 04:05:23,476][root][INFO] - ***** Training *****
+[2024-03-12 04:05:23,476][root][INFO] - ***** Epoch 1 *****
+[2024-03-12 04:05:23,477][root][INFO] - rank=-1; Iteration start
+[2024-03-12 04:05:23,477][root][INFO] - rank=-1; Multi set iteration: iteration ptr per set: [0]
+[2024-03-12 04:05:23,477][root][INFO] - rank=-1; Multi set iteration: source 0, batches to be taken: 15282
+[2024-03-12 04:05:23,483][root][INFO] - rank=-1; data_src_indices len=15282
+[2024-03-12 04:05:25,255][root][INFO] - Epoch: 1: Step: 1/15282, loss=8.068813, lr=0.000000
+[2024-03-12 04:05:25,351][root][INFO] - Epoch: 1: Step: 2/15282, loss=4.689561, lr=0.000000
+[2024-03-12 04:05:25,444][root][INFO] - Epoch: 1: Step: 3/15282, loss=5.057169, lr=0.000000
+[2024-03-12 04:05:25,538][root][INFO] - Epoch: 1: Step: 4/15282, loss=0.004155, lr=0.000000
+[2024-03-12 04:05:25,631][root][INFO] - Epoch: 1: Step: 5/15282, loss=3.421167, lr=0.000000
+[2024-03-12 04:05:25,725][root][INFO] - Epoch: 1: Step: 6/15282, loss=0.975141, lr=0.000000
+[2024-03-12 04:05:25,819][root][INFO] - Epoch: 1: Step: 7/15282, loss=1.817659, lr=0.000000
+[2024-03-12 04:05:25,912][root][INFO] - Epoch: 1: Step: 8/15282, loss=0.000024, lr=0.000000
+[2024-03-12 04:05:26,006][root][INFO] - Epoch: 1: Step: 9/15282, loss=0.473388, lr=0.000000
+[2024-03-12 04:05:26,099][root][INFO] - Epoch: 1: Step: 10/15282, loss=2.342931, lr=0.000000
+[2024-03-12 04:05:26,192][root][INFO] - Epoch: 1: Step: 11/15282, loss=6.100800, lr=0.000000
+[2024-03-12 04:05:26,286][root][INFO] - Epoch: 1: Step: 12/15282, loss=0.692367, lr=0.000000
+[2024-03-12 04:05:26,380][root][INFO] - Epoch: 1: Step: 13/15282, loss=0.000000, lr=0.000000
+[2024-03-12 04:05:26,473][root][INFO] - Epoch: 1: Step: 14/15282, loss=0.000165, lr=0.000000
+[2024-03-12 04:05:26,567][root][INFO] - Epoch: 1: Step: 15/15282, loss=0.019625, lr=0.000000
+[2024-03-12 04:05:26,660][root][INFO] - Epoch: 1: Step: 16/15282, loss=0.000000, lr=0.000000
+[2024-03-12 04:05:26,754][root][INFO] - Epoch: 1: Step: 17/15282, loss=0.219740, lr=0.000000
+[2024-03-12 04:05:26,848][root][INFO] - Epoch: 1: Step: 18/15282, loss=0.000085, lr=0.000000
+[2024-03-12 04:05:26,941][root][INFO] - Epoch: 1: Step: 19/15282, loss=0.022419, lr=0.000000
+[2024-03-12 04:05:27,034][root][INFO] - Epoch: 1: Step: 20/15282, loss=0.030164, lr=0.000000
+[2024-03-12 04:05:27,128][root][INFO] - Epoch: 1: Step: 21/15282, loss=1.322005, lr=0.000000
+[2024-03-12 04:05:27,221][root][INFO] - Epoch: 1: Step: 22/15282, loss=0.066376, lr=0.000000
+[2024-03-12 04:05:27,315][root][INFO] - Epoch: 1: Step: 23/15282, loss=0.880229, lr=0.000000
+[2024-03-12 04:05:27,409][root][INFO] - Epoch: 1: Step: 24/15282, loss=0.017564, lr=0.000000
+[2024-03-12 04:05:27,503][root][INFO] - Epoch: 1: Step: 25/15282, loss=1.016762, lr=0.000000
+[2024-03-12 04:05:27,597][root][INFO] - Epoch: 1: Step: 26/15282, loss=0.004886, lr=0.000000
+[2024-03-12 04:05:27,690][root][INFO] - Epoch: 1: Step: 27/15282, loss=0.035268, lr=0.000000
+[2024-03-12 04:05:27,784][root][INFO] - Epoch: 1: Step: 28/15282, loss=1.936080, lr=0.000000
+[2024-03-12 04:05:27,878][root][INFO] - Epoch: 1: Step: 29/15282, loss=0.225403, lr=0.000000
+[2024-03-12 04:05:27,971][root][INFO] - Epoch: 1: Step: 30/15282, loss=0.000033, lr=0.000000
+[2024-03-12 04:05:28,065][root][INFO] - Epoch: 1: Step: 31/15282, loss=0.807394, lr=0.000001
+[2024-03-12 04:05:28,158][root][INFO] - Epoch: 1: Step: 32/15282, loss=0.089848, lr=0.000001
+[2024-03-12 04:05:28,252][root][INFO] - Epoch: 1: Step: 33/15282, loss=0.029774, lr=0.000001
+[2024-03-12 04:05:28,345][root][INFO] - Epoch: 1: Step: 34/15282, loss=4.788882, lr=0.000001
+[2024-03-12 04:05:28,439][root][INFO] - Epoch: 1: Step: 35/15282, loss=1.842564, lr=0.000001
+[2024-03-12 04:05:28,532][root][INFO] - Epoch: 1: Step: 36/15282, loss=0.010520, lr=0.000001
+[2024-03-12 04:05:28,626][root][INFO] - Epoch: 1: Step: 37/15282, loss=0.000000, lr=0.000001
+[2024-03-12 04:05:28,719][root][INFO] - Epoch: 1: Step: 38/15282, loss=0.123868, lr=0.000001
+[2024-03-12 04:05:28,813][root][INFO] - Epoch: 1: Step: 39/15282, loss=1.499659, lr=0.000001
+[2024-03-12 04:05:28,906][root][INFO] - Epoch: 1: Step: 40/15282, loss=2.517528, lr=0.000001
+[2024-03-12 04:05:29,000][root][INFO] - Epoch: 1: Step: 41/15282, loss=4.649131, lr=0.000001
+[2024-03-12 04:05:29,094][root][INFO] - Epoch: 1: Step: 42/15282, loss=0.008946, lr=0.000001
+[2024-03-12 04:05:29,187][root][INFO] - Epoch: 1: Step: 43/15282, loss=0.000015, lr=0.000001
+[2024-03-12 04:05:29,281][root][INFO] - Epoch: 1: Step: 44/15282, loss=0.197278, lr=0.000001
+[2024-03-12 04:05:29,375][root][INFO] - Epoch: 1: Step: 45/15282, loss=2.524217, lr=0.000001
+[2024-03-12 04:05:29,469][root][INFO] - Epoch: 1: Step: 46/15282, loss=4.155729, lr=0.000001
+[2024-03-12 04:05:29,563][root][INFO] - Epoch: 1: Step: 47/15282, loss=0.000006, lr=0.000001
+[2024-03-12 04:05:29,656][root][INFO] - Epoch: 1: Step: 48/15282, loss=7.669790, lr=0.000001
+[2024-03-12 04:05:29,749][root][INFO] - Epoch: 1: Step: 49/15282, loss=5.725884, lr=0.000001
+[2024-03-12 04:05:29,842][root][INFO] - Epoch: 1: Step: 50/15282, loss=1.975761, lr=0.000001
+[2024-03-12 04:05:29,936][root][INFO] - Epoch: 1: Step: 51/15282, loss=0.031954, lr=0.000001
+[2024-03-12 04:05:30,030][root][INFO] - Epoch: 1: Step: 52/15282, loss=9.166863, lr=0.000001
+[2024-03-12 04:05:30,123][root][INFO] - Epoch: 1: Step: 53/15282, loss=0.925361, lr=0.000001
+[2024-03-12 04:05:30,217][root][INFO] - Epoch: 1: Step: 54/15282, loss=11.172393, lr=0.000001
+[2024-03-12 04:05:30,310][root][INFO] - Epoch: 1: Step: 55/15282, loss=0.000276, lr=0.000001
+[2024-03-12 04:05:30,404][root][INFO] - Epoch: 1: Step: 56/15282, loss=0.004758, lr=0.000001
+[2024-03-12 04:05:30,498][root][INFO] - Epoch: 1: Step: 57/15282, loss=0.001118, lr=0.000001
+[2024-03-12 04:05:30,592][root][INFO] - Epoch: 1: Step: 58/15282, loss=0.533867, lr=0.000001
+[2024-03-12 04:05:30,685][root][INFO] - Epoch: 1: Step: 59/15282, loss=0.131871, lr=0.000001
+[2024-03-12 04:05:30,778][root][INFO] - Epoch: 1: Step: 60/15282, loss=0.630652, lr=0.000001
+[2024-03-12 04:05:30,871][root][INFO] - Epoch: 1: Step: 61/15282, loss=0.000003, lr=0.000001
+[2024-03-12 04:05:30,965][root][INFO] - Epoch: 1: Step: 62/15282, loss=0.000000, lr=0.000001
+[2024-03-12 04:05:31,059][root][INFO] - Epoch: 1: Step: 63/15282, loss=3.579458, lr=0.000001
+[2024-03-12 04:05:31,152][root][INFO] - Epoch: 1: Step: 64/15282, loss=0.061329, lr=0.000001
+[2024-03-12 04:05:31,245][root][INFO] - Epoch: 1: Step: 65/15282, loss=0.034223, lr=0.000001
+[2024-03-12 04:05:31,339][root][INFO] - Epoch: 1: Step: 66/15282, loss=0.044491, lr=0.000001
+[2024-03-12 04:05:31,433][root][INFO] - Epoch: 1: Step: 67/15282, loss=0.173454, lr=0.000001
+[2024-03-12 04:05:31,526][root][INFO] - Epoch: 1: Step: 68/15282, loss=0.000280, lr=0.000001
+[2024-03-12 04:05:31,619][root][INFO] - Epoch: 1: Step: 69/15282, loss=0.050463, lr=0.000001
+[2024-03-12 04:05:31,712][root][INFO] - Epoch: 1: Step: 70/15282, loss=4.528668, lr=0.000001
+[2024-03-12 04:05:31,806][root][INFO] - Epoch: 1: Step: 71/15282, loss=0.001810, lr=0.000001
+[2024-03-12 04:05:31,900][root][INFO] - Epoch: 1: Step: 72/15282, loss=0.005019, lr=0.000001
+[2024-03-12 04:05:31,993][root][INFO] - Epoch: 1: Step: 73/15282, loss=0.003017, lr=0.000001
+[2024-03-12 04:05:32,086][root][INFO] - Epoch: 1: Step: 74/15282, loss=0.000146, lr=0.000001
+[2024-03-12 04:05:32,180][root][INFO] - Epoch: 1: Step: 75/15282, loss=0.787211, lr=0.000001
+[2024-03-12 04:05:32,274][root][INFO] - Epoch: 1: Step: 76/15282, loss=0.005557, lr=0.000001
+[2024-03-12 04:05:32,368][root][INFO] - Epoch: 1: Step: 77/15282, loss=0.005253, lr=0.000001
+[2024-03-12 04:05:32,461][root][INFO] - Epoch: 1: Step: 78/15282, loss=0.000151, lr=0.000001
+[2024-03-12 04:05:32,556][root][INFO] - Epoch: 1: Step: 79/15282, loss=10.904773, lr=0.000001
+[2024-03-12 04:05:32,649][root][INFO] - Epoch: 1: Step: 80/15282, loss=4.622630, lr=0.000001
+[2024-03-12 04:05:32,742][root][INFO] - Epoch: 1: Step: 81/15282, loss=0.018324, lr=0.000001
+[2024-03-12 04:05:32,836][root][INFO] - Epoch: 1: Step: 82/15282, loss=1.422192, lr=0.000001
+[2024-03-12 04:05:32,929][root][INFO] - Epoch: 1: Step: 83/15282, loss=0.197119, lr=0.000001
+[2024-03-12 04:05:33,023][root][INFO] - Epoch: 1: Step: 84/15282, loss=5.514439, lr=0.000001
+[2024-03-12 04:05:33,116][root][INFO] - Epoch: 1: Step: 85/15282, loss=0.117903, lr=0.000001
+[2024-03-12 04:05:33,209][root][INFO] - Epoch: 1: Step: 86/15282, loss=5.052196, lr=0.000001
+[2024-03-12 04:05:33,303][root][INFO] - Epoch: 1: Step: 87/15282, loss=0.000000, lr=0.000001
+[2024-03-12 04:05:33,397][root][INFO] - Epoch: 1: Step: 88/15282, loss=0.000003, lr=0.000001
+[2024-03-12 04:05:33,491][root][INFO] - Epoch: 1: Step: 89/15282, loss=0.013516, lr=0.000001
+[2024-03-12 04:05:33,585][root][INFO] - Epoch: 1: Step: 90/15282, loss=1.848693, lr=0.000001
+[2024-03-12 04:05:33,679][root][INFO] - Epoch: 1: Step: 91/15282, loss=0.028164, lr=0.000001
+[2024-03-12 04:05:33,773][root][INFO] - Epoch: 1: Step: 92/15282, loss=0.657167, lr=0.000001
+[2024-03-12 04:05:33,867][root][INFO] - Epoch: 1: Step: 93/15282, loss=3.156944, lr=0.000002
+[2024-03-12 04:05:33,960][root][INFO] - Epoch: 1: Step: 94/15282, loss=0.199597, lr=0.000002
+[2024-03-12 04:05:34,053][root][INFO] - Epoch: 1: Step: 95/15282, loss=0.000758, lr=0.000002
+[2024-03-12 04:05:34,147][root][INFO] - Epoch: 1: Step: 96/15282, loss=1.948049, lr=0.000002
+[2024-03-12 04:05:34,240][root][INFO] - Epoch: 1: Step: 97/15282, loss=6.772279, lr=0.000002
+[2024-03-12 04:05:34,335][root][INFO] - Epoch: 1: Step: 98/15282, loss=1.083928, lr=0.000002
+[2024-03-12 04:05:34,429][root][INFO] - Epoch: 1: Step: 99/15282, loss=0.000040, lr=0.000002
+[2024-03-12 04:05:34,523][root][INFO] - Epoch: 1: Step: 100/15282, loss=2.005310, lr=0.000002
+[2024-03-12 04:05:34,523][root][INFO] - Train batch 100
+[2024-03-12 04:05:34,523][root][INFO] - Avg. loss per last 100 batches: 1.555004
+[2024-03-12 04:05:34,617][root][INFO] - Epoch: 1: Step: 101/15282, loss=0.000003, lr=0.000002
+[2024-03-12 04:05:34,711][root][INFO] - Epoch: 1: Step: 102/15282, loss=2.506826, lr=0.000002
+[2024-03-12 04:05:34,805][root][INFO] - Epoch: 1: Step: 103/15282, loss=0.019065, lr=0.000002
+[2024-03-12 04:05:34,899][root][INFO] - Epoch: 1: Step: 104/15282, loss=0.197879, lr=0.000002
+[2024-03-12 04:05:34,992][root][INFO] - Epoch: 1: Step: 105/15282, loss=8.862087, lr=0.000002
+[2024-03-12 04:05:35,086][root][INFO] - Epoch: 1: Step: 106/15282, loss=3.202121, lr=0.000002
+[2024-03-12 04:05:35,181][root][INFO] - Epoch: 1: Step: 107/15282, loss=0.060645, lr=0.000002
+[2024-03-12 04:05:35,274][root][INFO] - Epoch: 1: Step: 108/15282, loss=0.184313, lr=0.000002
+[2024-03-12 04:05:35,367][root][INFO] - Epoch: 1: Step: 109/15282, loss=0.001985, lr=0.000002
+[2024-03-12 04:05:35,461][root][INFO] - Epoch: 1: Step: 110/15282, loss=0.003342, lr=0.000002
+[2024-03-12 04:05:35,554][root][INFO] - Epoch: 1: Step: 111/15282, loss=0.027317, lr=0.000002
+[2024-03-12 04:05:35,648][root][INFO] - Epoch: 1: Step: 112/15282, loss=0.000000, lr=0.000002
+[2024-03-12 04:05:35,741][root][INFO] - Epoch: 1: Step: 113/15282, loss=0.040161, lr=0.000002
+[2024-03-12 04:05:35,834][root][INFO] - Epoch: 1: Step: 114/15282, loss=0.001243, lr=0.000002
+[2024-03-12 04:05:35,927][root][INFO] - Epoch: 1: Step: 115/15282, loss=0.000000, lr=0.000002
+[2024-03-12 04:05:36,020][root][INFO] - Epoch: 1: Step: 116/15282, loss=0.129736, lr=0.000002
+[2024-03-12 04:05:36,113][root][INFO] - Epoch: 1: Step: 117/15282, loss=0.017142, lr=0.000002
+[2024-03-12 04:05:36,207][root][INFO] - Epoch: 1: Step: 118/15282, loss=0.000000, lr=0.000002
+[2024-03-12 04:05:36,301][root][INFO] - Epoch: 1: Step: 119/15282, loss=1.612330, lr=0.000002
+[2024-03-12 04:05:36,394][root][INFO] - Epoch: 1: Step: 120/15282, loss=0.107158, lr=0.000002
+[2024-03-12 04:05:36,489][root][INFO] - Epoch: 1: Step: 121/15282, loss=2.303367, lr=0.000002
+[2024-03-12 04:05:36,583][root][INFO] - Epoch: 1: Step: 122/15282, loss=0.122299, lr=0.000002
+[2024-03-12 04:05:36,677][root][INFO] - Epoch: 1: Step: 123/15282, loss=0.000001, lr=0.000002
+[2024-03-12 04:05:36,770][root][INFO] - Epoch: 1: Step: 124/15282, loss=0.031836, lr=0.000002
+[2024-03-12 04:05:36,863][root][INFO] - Epoch: 1: Step: 125/15282, loss=3.720202, lr=0.000002
+[2024-03-12 04:05:36,957][root][INFO] - Epoch: 1: Step: 126/15282, loss=0.051063, lr=0.000002
+[2024-03-12 04:05:37,050][root][INFO] - Epoch: 1: Step: 127/15282, loss=0.000617, lr=0.000002
+[2024-03-12 04:05:37,144][root][INFO] - Epoch: 1: Step: 128/15282, loss=0.164049, lr=0.000002
+[2024-03-12 04:05:37,238][root][INFO] - Epoch: 1: Step: 129/15282, loss=0.052136, lr=0.000002
+[2024-03-12 04:05:37,331][root][INFO] - Epoch: 1: Step: 130/15282, loss=0.009306, lr=0.000002
+[2024-03-12 04:05:37,426][root][INFO] - Epoch: 1: Step: 131/15282, loss=0.489186, lr=0.000002
+[2024-03-12 04:05:37,520][root][INFO] - Epoch: 1: Step: 132/15282, loss=0.078913, lr=0.000002
+[2024-03-12 04:05:37,614][root][INFO] - Epoch: 1: Step: 133/15282, loss=0.060253, lr=0.000002
+[2024-03-12 04:05:37,706][root][INFO] - Epoch: 1: Step: 134/15282, loss=0.889638, lr=0.000002
+[2024-03-12 04:05:37,799][root][INFO] - Epoch: 1: Step: 135/15282, loss=0.000250, lr=0.000002
+[2024-03-12 04:05:37,892][root][INFO] - Epoch: 1: Step: 136/15282, loss=8.570273, lr=0.000002
+[2024-03-12 04:05:37,986][root][INFO] - Epoch: 1: Step: 137/15282, loss=0.882118, lr=0.000002
+[2024-03-12 04:05:38,079][root][INFO] - Epoch: 1: Step: 138/15282, loss=0.161218, lr=0.000002
+[2024-03-12 04:05:38,171][root][INFO] - Epoch: 1: Step: 139/15282, loss=0.035419, lr=0.000002
+[2024-03-12 04:05:38,264][root][INFO] - Epoch: 1: Step: 140/15282, loss=0.278462, lr=0.000002
+[2024-03-12 04:05:38,358][root][INFO] - Epoch: 1: Step: 141/15282, loss=15.522675, lr=0.000002
+[2024-03-12 04:05:38,452][root][INFO] - Epoch: 1: Step: 142/15282, loss=0.602845, lr=0.000002
+[2024-03-12 04:05:38,546][root][INFO] - Epoch: 1: Step: 143/15282, loss=0.015760, lr=0.000002
+[2024-03-12 04:05:38,639][root][INFO] - Epoch: 1: Step: 144/15282, loss=0.009964, lr=0.000002
+[2024-03-12 04:05:38,732][root][INFO] - Epoch: 1: Step: 145/15282, loss=0.017768, lr=0.000002
+[2024-03-12 04:05:38,825][root][INFO] - Epoch: 1: Step: 146/15282, loss=0.003498, lr=0.000002
+[2024-03-12 04:05:38,918][root][INFO] - Epoch: 1: Step: 147/15282, loss=0.008965, lr=0.000002
+[2024-03-12 04:05:39,011][root][INFO] - Epoch: 1: Step: 148/15282, loss=0.001450, lr=0.000002
+[2024-03-12 04:05:39,104][root][INFO] - Epoch: 1: Step: 149/15282, loss=0.028223, lr=0.000002
+[2024-03-12 04:05:39,197][root][INFO] - Epoch: 1: Step: 150/15282, loss=3.541442, lr=0.000002
+[2024-03-12 04:05:39,291][root][INFO] - Epoch: 1: Step: 151/15282, loss=0.000747, lr=0.000002
+[2024-03-12 04:05:39,385][root][INFO] - Epoch: 1: Step: 152/15282, loss=5.852311, lr=0.000002
+[2024-03-12 04:05:39,478][root][INFO] - Epoch: 1: Step: 153/15282, loss=0.010444, lr=0.000002
+[2024-03-12 04:05:39,571][root][INFO] - Epoch: 1: Step: 154/15282, loss=0.000301, lr=0.000002
+[2024-03-12 04:05:39,664][root][INFO] - Epoch: 1: Step: 155/15282, loss=0.174038, lr=0.000003
+[2024-03-12 04:05:39,757][root][INFO] - Epoch: 1: Step: 156/15282, loss=0.000004, lr=0.000003
+[2024-03-12 04:05:39,851][root][INFO] - Epoch: 1: Step: 157/15282, loss=0.037430, lr=0.000003
+[2024-03-12 04:05:39,944][root][INFO] - Epoch: 1: Step: 158/15282, loss=6.336683, lr=0.000003
+[2024-03-12 04:05:40,037][root][INFO] - Epoch: 1: Step: 159/15282, loss=0.000014, lr=0.000003
+[2024-03-12 04:05:40,130][root][INFO] - Epoch: 1: Step: 160/15282, loss=2.431625, lr=0.000003
+[2024-03-12 04:05:40,223][root][INFO] - Epoch: 1: Step: 161/15282, loss=2.769578, lr=0.000003
+[2024-03-12 04:05:40,316][root][INFO] - Epoch: 1: Step: 162/15282, loss=0.510522, lr=0.000003
+[2024-03-12 04:05:40,410][root][INFO] - Epoch: 1: Step: 163/15282, loss=0.096059, lr=0.000003
+[2024-03-12 04:05:40,503][root][INFO] - Epoch: 1: Step: 164/15282, loss=0.026784, lr=0.000003
+[2024-03-12 04:05:40,596][root][INFO] - Epoch: 1: Step: 165/15282, loss=0.000033, lr=0.000003
+[2024-03-12 04:05:40,689][root][INFO] - Epoch: 1: Step: 166/15282, loss=0.000052, lr=0.000003
+[2024-03-12 04:05:40,783][root][INFO] - Epoch: 1: Step: 167/15282, loss=0.000000, lr=0.000003
+[2024-03-12 04:05:40,876][root][INFO] - Epoch: 1: Step: 168/15282, loss=0.000005, lr=0.000003
+[2024-03-12 04:05:40,969][root][INFO] - Epoch: 1: Step: 169/15282, loss=0.101990, lr=0.000003
+[2024-03-12 04:05:41,062][root][INFO] - Epoch: 1: Step: 170/15282, loss=0.000010, lr=0.000003
+[2024-03-12 04:05:41,156][root][INFO] - Epoch: 1: Step: 171/15282, loss=0.263124, lr=0.000003
+[2024-03-12 04:05:41,250][root][INFO] - Epoch: 1: Step: 172/15282, loss=0.018363, lr=0.000003
+[2024-03-12 04:05:41,344][root][INFO] - Epoch: 1: Step: 173/15282, loss=0.809912, lr=0.000003
+[2024-03-12 04:05:41,438][root][INFO] - Epoch: 1: Step: 174/15282, loss=0.029198, lr=0.000003
+[2024-03-12 04:05:41,531][root][INFO] - Epoch: 1: Step: 175/15282, loss=0.048267, lr=0.000003
+[2024-03-12 04:05:41,625][root][INFO] - Epoch: 1: Step: 176/15282, loss=0.018716, lr=0.000003
+[2024-03-12 04:05:41,720][root][INFO] - Epoch: 1: Step: 177/15282, loss=0.000172, lr=0.000003
+[2024-03-12 04:05:41,814][root][INFO] - Epoch: 1: Step: 178/15282, loss=0.000254, lr=0.000003
+[2024-03-12 04:05:41,907][root][INFO] - Epoch: 1: Step: 179/15282, loss=0.000000, lr=0.000003
+[2024-03-12 04:05:42,000][root][INFO] - Epoch: 1: Step: 180/15282, loss=2.830534, lr=0.000003
+[2024-03-12 04:05:42,094][root][INFO] - Epoch: 1: Step: 181/15282, loss=0.086896, lr=0.000003
+[2024-03-12 04:05:42,188][root][INFO] - Epoch: 1: Step: 182/15282, loss=0.049044, lr=0.000003
+[2024-03-12 04:05:42,285][root][INFO] - Epoch: 1: Step: 183/15282, loss=0.109860, lr=0.000003
+[2024-03-12 04:05:42,382][root][INFO] - Epoch: 1: Step: 184/15282, loss=3.724297, lr=0.000003
+[2024-03-12 04:05:42,479][root][INFO] - Epoch: 1: Step: 185/15282, loss=0.000001, lr=0.000003
+[2024-03-12 04:05:42,574][root][INFO] - Epoch: 1: Step: 186/15282, loss=0.000026, lr=0.000003
+[2024-03-12 04:05:42,667][root][INFO] - Epoch: 1: Step: 187/15282, loss=6.839862, lr=0.000003
+[2024-03-12 04:05:42,761][root][INFO] - Epoch: 1: Step: 188/15282, loss=0.000007, lr=0.000003
+[2024-03-12 04:05:42,854][root][INFO] - Epoch: 1: Step: 189/15282, loss=0.002050, lr=0.000003
+[2024-03-12 04:05:42,947][root][INFO] - Epoch: 1: Step: 190/15282, loss=3.095568, lr=0.000003
+[2024-03-12 04:05:43,041][root][INFO] - Epoch: 1: Step: 191/15282, loss=0.000024, lr=0.000003
+[2024-03-12 04:05:43,134][root][INFO] - Epoch: 1: Step: 192/15282, loss=1.119686, lr=0.000003
+[2024-03-12 04:05:43,228][root][INFO] - Epoch: 1: Step: 193/15282, loss=2.104688, lr=0.000003
+[2024-03-12 04:05:43,322][root][INFO] - Epoch: 1: Step: 194/15282, loss=0.271931, lr=0.000003
+[2024-03-12 04:05:43,418][root][INFO] - Epoch: 1: Step: 195/15282, loss=0.195889, lr=0.000003
+[2024-03-12 04:05:43,512][root][INFO] - Epoch: 1: Step: 196/15282, loss=0.402042, lr=0.000003
+[2024-03-12 04:05:43,607][root][INFO] - Epoch: 1: Step: 197/15282, loss=2.974352, lr=0.000003
+[2024-03-12 04:05:43,700][root][INFO] - Epoch: 1: Step: 198/15282, loss=0.140617, lr=0.000003
+[2024-03-12 04:05:43,793][root][INFO] - Epoch: 1: Step: 199/15282, loss=0.017697, lr=0.000003
+[2024-03-12 04:05:43,886][root][INFO] - Epoch: 1: Step: 200/15282, loss=0.004182, lr=0.000003
+[2024-03-12 04:05:43,886][root][INFO] - Train batch 200
+[2024-03-12 04:05:43,886][root][INFO] - Avg. loss per last 100 batches: 0.981324
+[2024-03-12 04:05:43,980][root][INFO] - Epoch: 1: Step: 201/15282, loss=1.068538, lr=0.000003
+[2024-03-12 04:05:44,073][root][INFO] - Epoch: 1: Step: 202/15282, loss=0.001869, lr=0.000003
+[2024-03-12 04:05:44,166][root][INFO] - Epoch: 1: Step: 203/15282, loss=0.483850, lr=0.000003
+[2024-03-12 04:05:44,259][root][INFO] - Epoch: 1: Step: 204/15282, loss=0.026577, lr=0.000003
+[2024-03-12 04:05:44,352][root][INFO] - Epoch: 1: Step: 205/15282, loss=0.184549, lr=0.000003
+[2024-03-12 04:05:44,447][root][INFO] - Epoch: 1: Step: 206/15282, loss=0.006929, lr=0.000003
+[2024-03-12 04:05:44,540][root][INFO] - Epoch: 1: Step: 207/15282, loss=0.000003, lr=0.000003
+[2024-03-12 04:05:44,634][root][INFO] - Epoch: 1: Step: 208/15282, loss=0.109720, lr=0.000003
+[2024-03-12 04:05:44,727][root][INFO] - Epoch: 1: Step: 209/15282, loss=0.000000, lr=0.000003
+[2024-03-12 04:05:44,820][root][INFO] - Epoch: 1: Step: 210/15282, loss=0.000000, lr=0.000003
+[2024-03-12 04:05:44,914][root][INFO] - Epoch: 1: Step: 211/15282, loss=0.365440, lr=0.000003
+[2024-03-12 04:05:45,007][root][INFO] - Epoch: 1: Step: 212/15282, loss=0.004632, lr=0.000003
+[2024-03-12 04:05:45,100][root][INFO] - Epoch: 1: Step: 213/15282, loss=0.001771, lr=0.000003
+[2024-03-12 04:05:45,192][root][INFO] - Epoch: 1: Step: 214/15282, loss=0.000131, lr=0.000003
+[2024-03-12 04:05:45,285][root][INFO] - Epoch: 1: Step: 215/15282, loss=1.845384, lr=0.000003
+[2024-03-12 04:05:45,378][root][INFO] - Epoch: 1: Step: 216/15282, loss=0.000007, lr=0.000003
+[2024-03-12 04:05:45,472][root][INFO] - Epoch: 1: Step: 217/15282, loss=0.000004, lr=0.000004
+[2024-03-12 04:05:45,564][root][INFO] - Epoch: 1: Step: 218/15282, loss=0.000049, lr=0.000004
+[2024-03-12 04:05:45,657][root][INFO] - Epoch: 1: Step: 219/15282, loss=0.000016, lr=0.000004
+[2024-03-12 04:05:45,749][root][INFO] - Epoch: 1: Step: 220/15282, loss=0.000743, lr=0.000004
+[2024-03-12 04:05:45,842][root][INFO] - Epoch: 1: Step: 221/15282, loss=0.456606, lr=0.000004
+[2024-03-12 04:05:45,936][root][INFO] - Epoch: 1: Step: 222/15282, loss=7.295269, lr=0.000004
+[2024-03-12 04:05:46,029][root][INFO] - Epoch: 1: Step: 223/15282, loss=0.000000, lr=0.000004
+[2024-03-12 04:05:46,121][root][INFO] - Epoch: 1: Step: 224/15282, loss=0.000153, lr=0.000004
+[2024-03-12 04:05:46,214][root][INFO] - Epoch: 1: Step: 225/15282, loss=7.403575, lr=0.000004
+[2024-03-12 04:05:46,307][root][INFO] - Epoch: 1: Step: 226/15282, loss=0.015911, lr=0.000004
+[2024-03-12 04:05:46,400][root][INFO] - Epoch: 1: Step: 227/15282, loss=5.509093, lr=0.000004
+[2024-03-12 04:05:46,494][root][INFO] - Epoch: 1: Step: 228/15282, loss=0.240057, lr=0.000004
+[2024-03-12 04:05:46,587][root][INFO] - Epoch: 1: Step: 229/15282, loss=5.112667, lr=0.000004
+[2024-03-12 04:05:46,680][root][INFO] - Epoch: 1: Step: 230/15282, loss=1.647227, lr=0.000004
+[2024-03-12 04:05:46,773][root][INFO] - Epoch: 1: Step: 231/15282, loss=0.000003, lr=0.000004
+[2024-03-12 04:05:46,867][root][INFO] - Epoch: 1: Step: 232/15282, loss=0.234263, lr=0.000004
+[2024-03-12 04:05:46,960][root][INFO] - Epoch: 1: Step: 233/15282, loss=0.004242, lr=0.000004
+[2024-03-12 04:05:47,052][root][INFO] - Epoch: 1: Step: 234/15282, loss=6.397811, lr=0.000004
+[2024-03-12 04:05:47,145][root][INFO] - Epoch: 1: Step: 235/15282, loss=0.022290, lr=0.000004
+[2024-03-12 04:05:47,238][root][INFO] - Epoch: 1: Step: 236/15282, loss=0.000351, lr=0.000004
+[2024-03-12 04:05:47,331][root][INFO] - Epoch: 1: Step: 237/15282, loss=0.009029, lr=0.000004
+[2024-03-12 04:05:47,424][root][INFO] - Epoch: 1: Step: 238/15282, loss=0.054417, lr=0.000004
+[2024-03-12 04:05:47,519][root][INFO] - Epoch: 1: Step: 239/15282, loss=0.005557, lr=0.000004
+[2024-03-12 04:05:47,612][root][INFO] - Epoch: 1: Step: 240/15282, loss=0.000000, lr=0.000004
+[2024-03-12 04:05:47,706][root][INFO] - Epoch: 1: Step: 241/15282, loss=1.681619, lr=0.000004
+[2024-03-12 04:05:47,802][root][INFO] - Epoch: 1: Step: 242/15282, loss=1.695476, lr=0.000004
+[2024-03-12 04:05:47,894][root][INFO] - Epoch: 1: Step: 243/15282, loss=2.382434, lr=0.000004
+[2024-03-12 04:05:47,987][root][INFO] - Epoch: 1: Step: 244/15282, loss=0.659798, lr=0.000004
+[2024-03-12 04:05:48,080][root][INFO] - Epoch: 1: Step: 245/15282, loss=0.001114, lr=0.000004
+[2024-03-12 04:05:48,174][root][INFO] - Epoch: 1: Step: 246/15282, loss=0.000000, lr=0.000004
+[2024-03-12 04:05:48,267][root][INFO] - Epoch: 1: Step: 247/15282, loss=2.152460, lr=0.000004
+[2024-03-12 04:05:48,360][root][INFO] - Epoch: 1: Step: 248/15282, loss=0.487025, lr=0.000004
+[2024-03-12 04:05:48,453][root][INFO] - Epoch: 1: Step: 249/15282, loss=2.646441, lr=0.000004
+[2024-03-12 04:05:48,547][root][INFO] - Epoch: 1: Step: 250/15282, loss=0.009988, lr=0.000004
+[2024-03-12 04:05:48,641][root][INFO] - Epoch: 1: Step: 251/15282, loss=1.269480, lr=0.000004
+[2024-03-12 04:05:48,735][root][INFO] - Epoch: 1: Step: 252/15282, loss=0.028181, lr=0.000004
+[2024-03-12 04:05:48,828][root][INFO] - Epoch: 1: Step: 253/15282, loss=0.314942, lr=0.000004
+[2024-03-12 04:05:48,922][root][INFO] - Epoch: 1: Step: 254/15282, loss=0.000001, lr=0.000004
+[2024-03-12 04:05:49,015][root][INFO] - Epoch: 1: Step: 255/15282, loss=0.028918, lr=0.000004
+[2024-03-12 04:05:49,109][root][INFO] - Epoch: 1: Step: 256/15282, loss=0.000000, lr=0.000004
+[2024-03-12 04:05:49,203][root][INFO] - Epoch: 1: Step: 257/15282, loss=0.045914, lr=0.000004
+[2024-03-12 04:05:49,296][root][INFO] - Epoch: 1: Step: 258/15282, loss=0.749307, lr=0.000004
+[2024-03-12 04:05:49,390][root][INFO] - Epoch: 1: Step: 259/15282, loss=0.000454, lr=0.000004
+[2024-03-12 04:05:49,484][root][INFO] - Epoch: 1: Step: 260/15282, loss=0.000676, lr=0.000004
+[2024-03-12 04:05:49,578][root][INFO] - Epoch: 1: Step: 261/15282, loss=0.006282, lr=0.000004
+[2024-03-12 04:05:49,671][root][INFO] - Epoch: 1: Step: 262/15282, loss=0.033703, lr=0.000004
+[2024-03-12 04:05:49,765][root][INFO] - Epoch: 1: Step: 263/15282, loss=0.000006, lr=0.000004
+[2024-03-12 04:05:49,858][root][INFO] - Epoch: 1: Step: 264/15282, loss=0.000004, lr=0.000004
+[2024-03-12 04:05:49,952][root][INFO] - Epoch: 1: Step: 265/15282, loss=0.000006, lr=0.000004
+[2024-03-12 04:05:50,045][root][INFO] - Epoch: 1: Step: 266/15282, loss=0.000008, lr=0.000004
+[2024-03-12 04:05:50,139][root][INFO] - Epoch: 1: Step: 267/15282, loss=9.634034, lr=0.000004
+[2024-03-12 04:05:50,233][root][INFO] - Epoch: 1: Step: 268/15282, loss=0.000024, lr=0.000004
+[2024-03-12 04:05:50,326][root][INFO] - Epoch: 1: Step: 269/15282, loss=0.000005, lr=0.000004
+[2024-03-12 04:05:50,420][root][INFO] - Epoch: 1: Step: 270/15282, loss=0.000485, lr=0.000004
+[2024-03-12 04:05:50,514][root][INFO] - Epoch: 1: Step: 271/15282, loss=0.000000, lr=0.000004
+[2024-03-12 04:05:50,608][root][INFO] - Epoch: 1: Step: 272/15282, loss=1.033956, lr=0.000004
+[2024-03-12 04:05:50,702][root][INFO] - Epoch: 1: Step: 273/15282, loss=5.834286, lr=0.000004
+[2024-03-12 04:05:50,795][root][INFO] - Epoch: 1: Step: 274/15282, loss=0.000000, lr=0.000004
+[2024-03-12 04:05:50,888][root][INFO] - Epoch: 1: Step: 275/15282, loss=0.004093, lr=0.000004
+[2024-03-12 04:05:50,982][root][INFO] - Epoch: 1: Step: 276/15282, loss=0.000039, lr=0.000004
+[2024-03-12 04:05:51,076][root][INFO] - Epoch: 1: Step: 277/15282, loss=0.000253, lr=0.000004
+[2024-03-12 04:05:51,169][root][INFO] - Epoch: 1: Step: 278/15282, loss=0.000000, lr=0.000004
+[2024-03-12 04:05:51,263][root][INFO] - Epoch: 1: Step: 279/15282, loss=6.856038, lr=0.000005
+[2024-03-12 04:05:51,356][root][INFO] - Epoch: 1: Step: 280/15282, loss=2.656681, lr=0.000005
+[2024-03-12 04:05:51,450][root][INFO] - Epoch: 1: Step: 281/15282, loss=0.000000, lr=0.000005
+[2024-03-12 04:05:51,544][root][INFO] - Epoch: 1: Step: 282/15282, loss=0.007342, lr=0.000005
+[2024-03-12 04:05:51,638][root][INFO] - Epoch: 1: Step: 283/15282, loss=0.909512, lr=0.000005
+[2024-03-12 04:05:51,731][root][INFO] - Epoch: 1: Step: 284/15282, loss=0.000000, lr=0.000005
+[2024-03-12 04:05:51,825][root][INFO] - Epoch: 1: Step: 285/15282, loss=2.461622, lr=0.000005
+[2024-03-12 04:05:51,919][root][INFO] - Epoch: 1: Step: 286/15282, loss=0.000007, lr=0.000005
+[2024-03-12 04:05:52,013][root][INFO] - Epoch: 1: Step: 287/15282, loss=0.105470, lr=0.000005
+[2024-03-12 04:05:52,106][root][INFO] - Epoch: 1: Step: 288/15282, loss=0.031977, lr=0.000005
+[2024-03-12 04:05:52,199][root][INFO] - Epoch: 1: Step: 289/15282, loss=4.515134, lr=0.000005
+[2024-03-12 04:05:52,293][root][INFO] - Epoch: 1: Step: 290/15282, loss=0.019814, lr=0.000005
+[2024-03-12 04:05:52,387][root][INFO] - Epoch: 1: Step: 291/15282, loss=2.060366, lr=0.000005
+[2024-03-12 04:05:52,482][root][INFO] - Epoch: 1: Step: 292/15282, loss=0.000000, lr=0.000005
+[2024-03-12 04:05:52,576][root][INFO] - Epoch: 1: Step: 293/15282, loss=0.000081, lr=0.000005
+[2024-03-12 04:05:52,670][root][INFO] - Epoch: 1: Step: 294/15282, loss=0.022278, lr=0.000005
+[2024-03-12 04:05:52,764][root][INFO] - Epoch: 1: Step: 295/15282, loss=0.003157, lr=0.000005
+[2024-03-12 04:05:52,857][root][INFO] - Epoch: 1: Step: 296/15282, loss=0.058142, lr=0.000005
+[2024-03-12 04:05:52,951][root][INFO] - Epoch: 1: Step: 297/15282, loss=0.141485, lr=0.000005
+[2024-03-12 04:05:53,044][root][INFO] - Epoch: 1: Step: 298/15282, loss=0.017584, lr=0.000005
+[2024-03-12 04:05:53,136][root][INFO] - Epoch: 1: Step: 299/15282, loss=7.272949, lr=0.000005
+[2024-03-12 04:05:53,229][root][INFO] - Epoch: 1: Step: 300/15282, loss=0.842335, lr=0.000005
+[2024-03-12 04:05:53,229][root][INFO] - Train batch 300
+[2024-03-12 04:05:53,230][root][INFO] - Avg. loss per last 100 batches: 0.971921
+[2024-03-12 04:05:53,323][root][INFO] - Epoch: 1: Step: 301/15282, loss=0.000467, lr=0.000005
+[2024-03-12 04:05:53,417][root][INFO] - Epoch: 1: Step: 302/15282, loss=0.306375, lr=0.000005
+[2024-03-12 04:05:53,512][root][INFO] - Epoch: 1: Step: 303/15282, loss=0.000187, lr=0.000005
+[2024-03-12 04:05:53,606][root][INFO] - Epoch: 1: Step: 304/15282, loss=7.338415, lr=0.000005
+[2024-03-12 04:05:53,700][root][INFO] - Epoch: 1: Step: 305/15282, loss=0.012386, lr=0.000005
+[2024-03-12 04:05:53,793][root][INFO] - Epoch: 1: Step: 306/15282, loss=1.027860, lr=0.000005
+[2024-03-12 04:05:53,886][root][INFO] - Epoch: 1: Step: 307/15282, loss=4.353009, lr=0.000005
+[2024-03-12 04:05:53,979][root][INFO] - Epoch: 1: Step: 308/15282, loss=2.106253, lr=0.000005
+[2024-03-12 04:05:54,072][root][INFO] - Epoch: 1: Step: 309/15282, loss=0.000004, lr=0.000005
+[2024-03-12 04:05:54,165][root][INFO] - Epoch: 1: Step: 310/15282, loss=0.001375, lr=0.000005
+[2024-03-12 04:05:54,258][root][INFO] - Epoch: 1: Step: 311/15282, loss=8.697173, lr=0.000005
+[2024-03-12 04:05:54,352][root][INFO] - Epoch: 1: Step: 312/15282, loss=0.009185, lr=0.000005
+[2024-03-12 04:05:54,446][root][INFO] - Epoch: 1: Step: 313/15282, loss=0.004076, lr=0.000005
+[2024-03-12 04:05:54,539][root][INFO] - Epoch: 1: Step: 314/15282, loss=0.732931, lr=0.000005
+[2024-03-12 04:05:54,632][root][INFO] - Epoch: 1: Step: 315/15282, loss=0.129852, lr=0.000005
+[2024-03-12 04:05:54,726][root][INFO] - Epoch: 1: Step: 316/15282, loss=0.013333, lr=0.000005
+[2024-03-12 04:05:54,819][root][INFO] - Epoch: 1: Step: 317/15282, loss=0.337700, lr=0.000005
+[2024-03-12 04:05:54,912][root][INFO] - Epoch: 1: Step: 318/15282, loss=4.583676, lr=0.000005
+[2024-03-12 04:05:55,005][root][INFO] - Epoch: 1: Step: 319/15282, loss=0.071261, lr=0.000005
+[2024-03-12 04:05:55,098][root][INFO] - Epoch: 1: Step: 320/15282, loss=0.000012, lr=0.000005
+[2024-03-12 04:05:55,191][root][INFO] - Epoch: 1: Step: 321/15282, loss=0.001084, lr=0.000005
+[2024-03-12 04:05:55,285][root][INFO] - Epoch: 1: Step: 322/15282, loss=0.001665, lr=0.000005
+[2024-03-12 04:05:55,378][root][INFO] - Epoch: 1: Step: 323/15282, loss=1.690243, lr=0.000005
+[2024-03-12 04:05:55,472][root][INFO] - Epoch: 1: Step: 324/15282, loss=0.000028, lr=0.000005
+[2024-03-12 04:05:55,565][root][INFO] - Epoch: 1: Step: 325/15282, loss=0.000209, lr=0.000005
+[2024-03-12 04:05:55,658][root][INFO] - Epoch: 1: Step: 326/15282, loss=0.000024, lr=0.000005
+[2024-03-12 04:05:55,752][root][INFO] - Epoch: 1: Step: 327/15282, loss=0.036214, lr=0.000005
+[2024-03-12 04:05:55,845][root][INFO] - Epoch: 1: Step: 328/15282, loss=0.000021, lr=0.000005
+[2024-03-12 04:05:55,938][root][INFO] - Epoch: 1: Step: 329/15282, loss=0.064968, lr=0.000005
+[2024-03-12 04:05:56,031][root][INFO] - Epoch: 1: Step: 330/15282, loss=2.856918, lr=0.000005
+[2024-03-12 04:05:56,124][root][INFO] - Epoch: 1: Step: 331/15282, loss=0.000327, lr=0.000005
+[2024-03-12 04:05:56,218][root][INFO] - Epoch: 1: Step: 332/15282, loss=0.000000, lr=0.000005
+[2024-03-12 04:05:56,312][root][INFO] - Epoch: 1: Step: 333/15282, loss=0.001381, lr=0.000005
+[2024-03-12 04:05:56,406][root][INFO] - Epoch: 1: Step: 334/15282, loss=0.000000, lr=0.000005
+[2024-03-12 04:05:56,500][root][INFO] - Epoch: 1: Step: 335/15282, loss=0.002736, lr=0.000005
+[2024-03-12 04:05:56,594][root][INFO] - Epoch: 1: Step: 336/15282, loss=0.000007, lr=0.000005
+[2024-03-12 04:05:56,688][root][INFO] - Epoch: 1: Step: 337/15282, loss=0.000002, lr=0.000005
+[2024-03-12 04:05:56,781][root][INFO] - Epoch: 1: Step: 338/15282, loss=0.724815, lr=0.000005
+[2024-03-12 04:05:56,875][root][INFO] - Epoch: 1: Step: 339/15282, loss=0.060393, lr=0.000005
+[2024-03-12 04:05:56,968][root][INFO] - Epoch: 1: Step: 340/15282, loss=0.032943, lr=0.000005
+[2024-03-12 04:05:57,061][root][INFO] - Epoch: 1: Step: 341/15282, loss=0.326615, lr=0.000006
+[2024-03-12 04:05:57,155][root][INFO] - Epoch: 1: Step: 342/15282, loss=0.116651, lr=0.000006
+[2024-03-12 04:05:57,249][root][INFO] - Epoch: 1: Step: 343/15282, loss=1.781497, lr=0.000006
+[2024-03-12 04:05:57,342][root][INFO] - Epoch: 1: Step: 344/15282, loss=0.028021, lr=0.000006
+[2024-03-12 04:05:57,437][root][INFO] - Epoch: 1: Step: 345/15282, loss=0.000034, lr=0.000006
+[2024-03-12 04:05:57,531][root][INFO] - Epoch: 1: Step: 346/15282, loss=0.012134, lr=0.000006
+[2024-03-12 04:05:57,626][root][INFO] - Epoch: 1: Step: 347/15282, loss=1.058831, lr=0.000006
+[2024-03-12 04:05:57,720][root][INFO] - Epoch: 1: Step: 348/15282, loss=5.538117, lr=0.000006
+[2024-03-12 04:05:57,812][root][INFO] - Epoch: 1: Step: 349/15282, loss=2.662570, lr=0.000006
+[2024-03-12 04:05:57,905][root][INFO] - Epoch: 1: Step: 350/15282, loss=0.000234, lr=0.000006
+[2024-03-12 04:05:57,999][root][INFO] - Epoch: 1: Step: 351/15282, loss=0.000041, lr=0.000006
+[2024-03-12 04:05:58,093][root][INFO] - Epoch: 1: Step: 352/15282, loss=2.842711, lr=0.000006
+[2024-03-12 04:05:58,187][root][INFO] - Epoch: 1: Step: 353/15282, loss=0.863371, lr=0.000006
+[2024-03-12 04:05:58,280][root][INFO] - Epoch: 1: Step: 354/15282, loss=0.009485, lr=0.000006
+[2024-03-12 04:05:58,374][root][INFO] - Epoch: 1: Step: 355/15282, loss=0.000001, lr=0.000006
+[2024-03-12 04:05:58,468][root][INFO] - Epoch: 1: Step: 356/15282, loss=0.005603, lr=0.000006
+[2024-03-12 04:05:58,563][root][INFO] - Epoch: 1: Step: 357/15282, loss=2.117006, lr=0.000006
+[2024-03-12 04:05:58,657][root][INFO] - Epoch: 1: Step: 358/15282, loss=8.472354, lr=0.000006
+[2024-03-12 04:05:58,750][root][INFO] - Epoch: 1: Step: 359/15282, loss=2.046908, lr=0.000006
+[2024-03-12 04:05:58,843][root][INFO] - Epoch: 1: Step: 360/15282, loss=0.000185, lr=0.000006
+[2024-03-12 04:05:58,936][root][INFO] - Epoch: 1: Step: 361/15282, loss=0.000000, lr=0.000006
+[2024-03-12 04:05:59,029][root][INFO] - Epoch: 1: Step: 362/15282, loss=0.001479, lr=0.000006
+[2024-03-12 04:05:59,122][root][INFO] - Epoch: 1: Step: 363/15282, loss=0.084529, lr=0.000006
+[2024-03-12 04:05:59,215][root][INFO] - Epoch: 1: Step: 364/15282, loss=0.205226, lr=0.000006
+[2024-03-12 04:05:59,308][root][INFO] - Epoch: 1: Step: 365/15282, loss=0.006821, lr=0.000006
+[2024-03-12 04:05:59,402][root][INFO] - Epoch: 1: Step: 366/15282, loss=0.000001, lr=0.000006
+[2024-03-12 04:05:59,495][root][INFO] - Epoch: 1: Step: 367/15282, loss=0.031816, lr=0.000006
+[2024-03-12 04:05:59,588][root][INFO] - Epoch: 1: Step: 368/15282, loss=0.073374, lr=0.000006
+[2024-03-12 04:05:59,682][root][INFO] - Epoch: 1: Step: 369/15282, loss=6.303315, lr=0.000006
+[2024-03-12 04:05:59,775][root][INFO] - Epoch: 1: Step: 370/15282, loss=1.754739, lr=0.000006
+[2024-03-12 04:05:59,868][root][INFO] - Epoch: 1: Step: 371/15282, loss=0.000000, lr=0.000006
+[2024-03-12 04:05:59,962][root][INFO] - Epoch: 1: Step: 372/15282, loss=2.142353, lr=0.000006
+[2024-03-12 04:06:00,055][root][INFO] - Epoch: 1: Step: 373/15282, loss=1.245558, lr=0.000006
+[2024-03-12 04:06:00,148][root][INFO] - Epoch: 1: Step: 374/15282, loss=0.002666, lr=0.000006
+[2024-03-12 04:06:00,242][root][INFO] - Epoch: 1: Step: 375/15282, loss=0.164376, lr=0.000006
+[2024-03-12 04:06:00,336][root][INFO] - Epoch: 1: Step: 376/15282, loss=0.291600, lr=0.000006
+[2024-03-12 04:06:00,431][root][INFO] - Epoch: 1: Step: 377/15282, loss=5.724728, lr=0.000006
+[2024-03-12 04:06:00,525][root][INFO] - Epoch: 1: Step: 378/15282, loss=0.003866, lr=0.000006
+[2024-03-12 04:06:00,618][root][INFO] - Epoch: 1: Step: 379/15282, loss=1.665321, lr=0.000006
+[2024-03-12 04:06:00,711][root][INFO] - Epoch: 1: Step: 380/15282, loss=3.402509, lr=0.000006
+[2024-03-12 04:06:00,804][root][INFO] - Epoch: 1: Step: 381/15282, loss=0.019944, lr=0.000006
+[2024-03-12 04:06:00,898][root][INFO] - Epoch: 1: Step: 382/15282, loss=0.063221, lr=0.000006
+[2024-03-12 04:06:00,991][root][INFO] - Epoch: 1: Step: 383/15282, loss=1.930203, lr=0.000006
+[2024-03-12 04:06:01,083][root][INFO] - Epoch: 1: Step: 384/15282, loss=0.000313, lr=0.000006
+[2024-03-12 04:06:01,176][root][INFO] - Epoch: 1: Step: 385/15282, loss=0.000000, lr=0.000006
+[2024-03-12 04:06:01,269][root][INFO] - Epoch: 1: Step: 386/15282, loss=0.000000, lr=0.000006
+[2024-03-12 04:06:01,364][root][INFO] - Epoch: 1: Step: 387/15282, loss=0.062217, lr=0.000006
+[2024-03-12 04:06:01,461][root][INFO] - Epoch: 1: Step: 388/15282, loss=0.000010, lr=0.000006
+[2024-03-12 04:06:01,554][root][INFO] - Epoch: 1: Step: 389/15282, loss=0.000716, lr=0.000006
+[2024-03-12 04:06:01,648][root][INFO] - Epoch: 1: Step: 390/15282, loss=0.008662, lr=0.000006
+[2024-03-12 04:06:01,742][root][INFO] - Epoch: 1: Step: 391/15282, loss=0.097913, lr=0.000006
+[2024-03-12 04:06:01,835][root][INFO] - Epoch: 1: Step: 392/15282, loss=0.000973, lr=0.000006
+[2024-03-12 04:06:01,928][root][INFO] - Epoch: 1: Step: 393/15282, loss=5.655353, lr=0.000006

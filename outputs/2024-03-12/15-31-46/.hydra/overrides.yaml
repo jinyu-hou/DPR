@@ -1,0 +1,5 @@
+- model_file=/home/ec2-user/11711-a2/DPR/dpr/workdir/dpr_biencoder.29
+- ctx_src=cmu_lti
+- out_file=/home/ec2-user/11711-a2/DPR/dpr/workdir
+- device=cuda
+- n_gpu=1
